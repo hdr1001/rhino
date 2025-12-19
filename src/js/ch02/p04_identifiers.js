@@ -1,9 +1,9 @@
 /* ********************************************************************
 //
 // Notes reading JavaScript: The Definitive Guide, 6th Edition
-// Inject content on DOMContentLoaded event
+// Chapter 2.4: Valid identifiers
 //
-// Copyright 2025 Hans de Rooij 
+// Copyright 2025 Hans de Rooij
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,20 +19,9 @@
 //
 // ***************************************************************** */
 
-import esc_seq from './ch02/p01_esc_seq.js';
+//How are valid identifiers structured
+export default function _validIdentifier() {
+    var $validID = 'valid identifier';
 
-console.log('Running script index.js');
-
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Adding the JS output to the document');
-
-    const pElement = document.getElementById('js_out');
-
-    if(pElement) {
-        const codeElement = document.createElement('pre');
-
-        codeElement.textContent = esc_seq();
-
-        pElement.appendChild(codeElement);
-    }    
-});
+    return `A ${$validID} begins with a letter, _ or $`;
+};

@@ -12,13 +12,14 @@
     <meta name="copyright" content="&copy; 2025 Hans de Rooij">
     <meta name="license" content="https://opensource.org/license/apache-2-0/">
 
+    <link rel="stylesheet" href="main.css" />
+
     <!-- 
         ➡️ No need to specify defer when loading a module! The loading is deferred
         automatically. The script will be executed after the document has been parsed,
         but before event DOMContentLoaded is fired.
     -->
-    <script type="module" src="./src/js/content.js"></script>
-    <script type="module" src="./src/js/index.js"></script>
+    <script type="module" src="./src/js/contentLogic.js"></script>
 
     <!-- The script below will load synchronously and will be executed immediately -->
     <script>
@@ -37,7 +38,7 @@
     </p>
 
     <!-- HTML attribute that will be used to display the JavaScript output -->
-    <div id="functionality" style="display: flex"></div>
+    <div id="app"></div>
 
     <p><a href="./LICENSE" rel="license">Apache license</a> (v2.0)</p>
 
