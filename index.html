@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- Metadata about the document -->
     <meta name="description" content="Rereading: JavaScript, the definitive guide">
     <meta name="author" content="Hans de Rooij">
     <meta name="keywords" content="JavaScript Rhino book 6th edition">
@@ -12,7 +13,17 @@
     <meta name="copyright" content="&copy; 2025 Hans de Rooij">
     <meta name="license" content="https://opensource.org/license/apache-2-0/">
 
-    <link rel="stylesheet" href="main.css" />
+    <!-- Favicon and app icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="manifest" href="./site.webmanifest">
+
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="./main.css" />
+
+    <!-- Inclusion of JavaScript code -->
+    <script>console.log('👋 from the first script tag')</script>
 
     <!-- 
         ➡️ No need to specify defer when loading a module! The loading is deferred
@@ -23,9 +34,13 @@
 
     <!-- The script below will load synchronously and will be executed immediately -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => console.log('DOM content loaded'))
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM content loaded');
+            // Add more code here that needs to run after the DOM is fully loaded
+        })
     </script>
 
+    <!-- This is what it's all about -->
     <title>JavaScript: the definitive guide</title>
 
 </head>

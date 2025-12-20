@@ -22,6 +22,7 @@
 import esc_seq from './ch02/p01_esc_seq.js';
 import validID from './ch02/p04_identifiers.js';
 import semicolons from './ch02/p05_semicolons.js';
+import typeVars from './ch03/p00_types_vars.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
@@ -49,7 +50,11 @@ const paragraphs = [
 const functionality = [
     { chapter: 2, paragraph: 1, num: 0, desc: 'Escape sequence', code: esc_seq },
     { chapter: 2, paragraph: 4, num: 1, desc: 'Valid identifiers', code: validID },
-    { chapter: 2, paragraph: 5, num: 2, desc: 'Semicolons', code: semicolons }
+    { chapter: 2, paragraph: 5, num: 2, desc: 'Semicolons', code: semicolons },
+
+    { chapter: 3, paragraph: 0, num: 3, desc: 'Global v. module level vars', code: typeVars.globalModuleLevelVars },
+    { chapter: 3, paragraph: 0, num: 4, desc: 'JavaScript variable types', code: typeVars.jsTypes },
+    { chapter: 3, paragraph: 0, num: 5, desc: 'JavaScript variables', code: typeVars.jsVariables }
 ];
 
 export { chapters, paragraphs, functionality };
