@@ -23,27 +23,30 @@ import { chapters, paragraphs, functionality } from './content.js';
 
 console.log('Running content logic script');
 
+//Get reference to app div
 const divApp = document.getElementById('app');
-let pJsOut = null;
+let pJsOut = null; //Variable to hold reference to js_out paragraph
 
+//The application generates three tables: chapters, paragraphs and functionality
 const tables = {
     chapters: { id: 'chapters', actNum: 2, name: 'Chapters', tbody: null },
     paragraphs: { id: 'paragraphs', actNum: 1, name: 'Paragraphs', tbody: null },
     functionality: { id: 'functionality', actNum: 0, name: 'Functionality', tbody: null }
 }
 
+//Get the first functionality index for the current chapter & paragraph
 function firstFunctionalityIdx() {
     return functionality
         .filter(func => func.chapter === tables.chapters.actNum &&
             func.paragraph === tables.paragraphs.actNum
         )
-        .reduce((acc, func) => Math.max(acc, func.num), 0);
+        .reduce((acc, func) => Math.min(acc, func.num), 0);
 }
 
+//Update the pre element in the js_out paragraph with the code results
 function updatePre() {
-    let textContent = '';
+    let textContent = ''; //Default text content
 
-    console.log('Updating pre with functionality index ' + tables.functionality.actNum);
     //tables.functionality.actNum can have a null value!
     try {
         switch(typeof functionality[tables.functionality.actNum].code) {
@@ -58,6 +61,7 @@ function updatePre() {
         console.error(err.message)
     }
 
+    //Replace the content of the pre element
     if(pJsOut) {
         let pre = pJsOut.getElementsByTagName('pre');
 
@@ -74,6 +78,7 @@ function updatePre() {
     }
 }
 
+//Change the active chapter and update the paragraphs & functionality tables
 function changeActChapter(numChapter) { 
     tables.chapters.actNum = numChapter;
     
@@ -81,18 +86,21 @@ function changeActChapter(numChapter) {
     listFunctionality(tables.functionality.tbody);
 }
 
+//Change the active paragraph and update the functionality table
 function changeActParagraph(numParagraph) {
     tables.paragraphs.actNum = numParagraph;
 
     listFunctionality(tables.functionality.tbody);
 }
 
+//Change the active functionality and update the pre element
 function changeActFunctionality(numFunc) {
     tables.functionality.actNum = numFunc; //numFunc can be null!
 
     updatePre();
 }
 
+//List all chapters in the chapters table
 function listChapters(tbody) {
     chapters.forEach(chapter => {
         let tr, td;
@@ -108,6 +116,7 @@ function listChapters(tbody) {
     });
 }
 
+//List all paragraphs for the active chapter in the paragraphs table
 function listChapterParagraphs(tbody) {
     while(tbody.hasChildNodes()) { tbody.removeChild(tbody.lastChild) }
 
@@ -133,6 +142,7 @@ function listChapterParagraphs(tbody) {
     tables.paragraphs.actNum = firstParagraph;
 }
 
+//List all code available for the active chapter & paragraph
 function listFunctionality(tbody) {
     while(tbody.hasChildNodes()) { tbody.removeChild(tbody.lastChild) }
 
@@ -161,6 +171,7 @@ function listFunctionality(tbody) {
     changeActFunctionality(firstFunc);
 }
 
+//Create and add a table to the app div
 function addTable(tableInstance) {
     const div = document.createElement('div');
     div.setAttribute('id', tableInstance.id + '_div');
@@ -179,6 +190,7 @@ function addTable(tableInstance) {
     return div;
 }
 
+//If the app div exists, add the tables and initialize the js_out paragraph
 if(divApp) {
     Object.keys(tables).forEach(key => divApp.appendChild(addTable(tables[key])));
 
