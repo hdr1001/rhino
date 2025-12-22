@@ -67,9 +67,20 @@ td {
   border: 1px solid;
 }
 
+td:hover {
+  border-color: gainsboro;
+  border-width: medium;
+  font-style: italic;
+}
+
+td.tdact {
+  background: gainsboro;
+}
+
 thead {
   border-block-end: 2px solid;
-  background: whitesmoke;
+  background: lightslategray;
+  color: whitesmoke;
 }
 
 tfoot {

@@ -23,15 +23,15 @@ import { chapters, paragraphs, functionality } from './content.js';
 
 console.log('Running content logic script');
 
-//Get reference to app div
-const divApp = document.getElementById('app');
+const divApp = document.getElementById('app'); //Get reference to app div
+const tdAct = 'tdact'; //Table data active class
 let pJsOut = null; //Variable to hold reference to js_out paragraph
 
 //The application generates three tables: chapters, paragraphs and functionality
 const tables = {
-    chapters: { id: 'chapters', actNum: 2, name: 'Chapters', tbody: null },
-    paragraphs: { id: 'paragraphs', actNum: 1, name: 'Paragraphs', tbody: null },
-    functionality: { id: 'functionality', actNum: 0, name: 'Functionality', tbody: null }
+    chapters: { id: 'chapters', actNum: null, name: 'Chapters', tbody: null },
+    paragraphs: { id: 'paragraphs', actNum: null, name: 'Paragraphs', tbody: null },
+    functionality: { id: 'functionality', actNum: null, name: 'Functionality', tbody: null }
 }
 
 //Get the first functionality index for the current chapter & paragraph
@@ -78,31 +78,12 @@ function updatePre() {
     }
 }
 
-//Change the active chapter and update the paragraphs & functionality tables
-function changeActChapter(numChapter) { 
-    tables.chapters.actNum = numChapter;
-    
-    listChapterParagraphs(tables.paragraphs.tbody);
-    listFunctionality(tables.functionality.tbody);
-}
+//List all chapters in the chapters table,
+//assuming the availability of at least one chapter
+function listChapters() {
+    const tbody = tables.chapters.tbody; if(!tbody) return;
 
-//Change the active paragraph and update the functionality table
-function changeActParagraph(numParagraph) {
-    tables.paragraphs.actNum = numParagraph;
-
-    listFunctionality(tables.functionality.tbody);
-}
-
-//Change the active functionality and update the pre element
-function changeActFunctionality(numFunc) {
-    tables.functionality.actNum = numFunc; //numFunc can be null!
-
-    updatePre();
-}
-
-//List all chapters in the chapters table
-function listChapters(tbody) {
-    chapters.forEach(chapter => {
+    chapters.forEach((chapter, idx) => {
         let tr, td;
 
         //console.log(`Adding chapter ${chapter.num}: ${chapter.desc}`);
@@ -111,13 +92,37 @@ function listChapters(tbody) {
 
         td = document.createElement('td');
         td.textContent = chapter.desc;
-        td.addEventListener('click', () => changeActChapter(chapter.num));
+        td.addEventListener('click', () => {
+            if(tables.chapters.actNum === chapter.num) {
+                //console.log('New chapter is the same as the current one, nothing changes');
+                return;
+            }
+
+            //console.log(`New active chapter is ${chapter.num}`);
+            tables.chapters.actNum = chapter.num;
+
+            //Update the chapter UI
+            const tdElemActiveList = tbody.querySelectorAll('td.' + tdAct);
+            tdElemActiveList.forEach(tdActive => tdActive.classList.remove(tdAct));
+            td.classList.add(tdAct);
+
+            //Update the other tables
+            listChapterParagraphs();
+            listFunctionality();
+        });
         tr.appendChild(td);
+
+        if(idx === 0) { //Make the first entry active
+            tables.chapters.actNum = chapter.num;
+            td.classList.add(tdAct)
+        }
     });
 }
 
 //List all paragraphs for the active chapter in the paragraphs table
-function listChapterParagraphs(tbody) {
+function listChapterParagraphs() {
+    const tbody = tables.paragraphs.tbody; if(!tbody) return;
+
     while(tbody.hasChildNodes()) { tbody.removeChild(tbody.lastChild) }
 
     let firstParagraph = null;
@@ -133,17 +138,37 @@ function listChapterParagraphs(tbody) {
 
             td = document.createElement('td');
             td.textContent = paragraph.desc;
-            td.addEventListener('click', () => changeActParagraph(paragraph.num));
+            td.addEventListener('click', () => {
+                if(tables.paragraphs.actNum === paragraph.num) {
+                    //console.log('New paragraph is the same as the current one, nothing changes');
+                    return;
+                }
+
+                //console.log(`New active paragraph is ${paragraph.num}`);
+                tables.paragraphs.actNum = paragraph.num;
+
+                //Update the paragraph UI
+                const tdElemActiveList = tbody.querySelectorAll('td.' + tdAct);
+                tdElemActiveList.forEach(tdActive => tdActive.classList.remove(tdAct));
+                td.classList.add(tdAct);
+
+                listFunctionality();
+            });
             tr.appendChild(td);
 
-            if(idx === 0) firstParagraph = paragraph.num;
+            if(idx === 0) { //Make the first entry active (if entries available) 
+                firstParagraph = paragraph.num;
+                td.classList.add(tdAct);
+            }
         });
 
     tables.paragraphs.actNum = firstParagraph;
 }
 
 //List all code available for the active chapter & paragraph
-function listFunctionality(tbody) {
+function listFunctionality() {
+    const tbody = tables.functionality.tbody; if(!tbody) return;
+
     while(tbody.hasChildNodes()) { tbody.removeChild(tbody.lastChild) }
 
     let firstFunc = null;
@@ -162,13 +187,32 @@ function listFunctionality(tbody) {
 
             td = document.createElement('td');
             td.textContent = func.desc;
-            td.addEventListener('click', () => changeActFunctionality(func.num));
+            td.addEventListener('click', () => {
+                if(tables.functionality.actNum === func.num) {
+                    //console.log('New functionality is the same as the current, nothing changes');
+                    return;
+                }
+
+                //console.log(`New active functionality is ${func.num}`);
+                tables.functionality.actNum = func.num;
+
+                //Update the functionality UI
+                const tdElemActiveList = tbody.querySelectorAll('td.' + tdAct);
+                tdElemActiveList.forEach(tdActive => tdActive.classList.remove(tdAct));
+                td.classList.add(tdAct);
+
+                updatePre();
+            });
             tr.appendChild(td);
 
-            if(idx === 0) firstFunc = func.num;
+            if(idx === 0) { //Make the first entry active (if entries available)
+                firstFunc = func.num;
+                td.classList.add(tdAct);
+            }
         });
 
-    changeActFunctionality(firstFunc);
+    tables.functionality.actNum = firstFunc;
+    updatePre();
 }
 
 //Create and add a table to the app div
@@ -199,7 +243,7 @@ if(divApp) {
     pJsOut.setAttribute('id', 'js_out');
     divApp.parentNode.insertBefore(pJsOut, divApp.nextSibling);
 
-    if(tables.chapters.tbody) listChapters(tables.chapters.tbody);
-    if(tables.paragraphs.tbody) listChapterParagraphs(tables.paragraphs.tbody);
-    if(tables.functionality.tbody) listFunctionality(tables.functionality.tbody);
+    if(tables.chapters.tbody) listChapters();
+    if(tables.paragraphs.tbody) listChapterParagraphs();
+    if(tables.functionality.tbody) listFunctionality();
 }
