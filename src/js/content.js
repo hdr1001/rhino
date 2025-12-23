@@ -25,6 +25,10 @@ import semicolons from './ch02/p05_semicolons.js';
 import typeVars from './ch03/p00_types_vars.js';
 import typeNum from './ch03/p01_nums.js';
 import typeStr from './ch03/p02_str.js';
+import * as boole from './ch03/p03_boole.js';
+import typeUndefNull from './ch03/p04_undef_null.js';
+import modThis from './ch03/p05_gbl_obj.js';
+import primitiveWrappers from './ch03/p06_wrap_obj.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
@@ -64,7 +68,16 @@ const functionality = [
     { chapter: 3, paragraph: 1, num: 9, desc: 'Date basics (#ms)', code: typeNum.dateBasics },
 
     { chapter: 3, paragraph: 2, num: 10, desc: 'Immutable strings', code: typeStr.strImmutable },
-    { chapter: 3, paragraph: 2, num: 11, desc: 'Primitive wrappers', code: typeStr.strWrapperMethods }
+    { chapter: 3, paragraph: 2, num: 11, desc: 'Primitive wrappers', code: typeStr.strWrapperMethods },
+
+    { chapter: 3, paragraph: 3, num: 12, desc: 'Booleans', code: boole.logic },
+
+    { chapter: 3, paragraph: 4, num: 13, desc: 'undefined', code: typeUndefNull.undef },
+    { chapter: 3, paragraph: 4, num: 14, desc: 'undefined == null', code: typeUndefNull.undefNull },
+
+    { chapter: 3, paragraph: 5, num: 15, desc: 'Global this', code: modThis },
+
+    { chapter: 3, paragraph: 6, num: 16, desc: 'Wrapper objects', code: primitiveWrappers }
 ];
 
 export { chapters, paragraphs, functionality };
