@@ -23,9 +23,11 @@
 function jsNum() {
     var numInt = 42, numFloat = 1.1301;
 
-    return `JavaScript only has one numeric type.
-        For integers (numInt = ${numInt}, type ${typeof numInt})
-        & floating point numbers (numFloat = ${numFloat}, type ${typeof numFloat}).
+    return `
+        JavaScript only has one numeric type. This type is used for: 
+        ➡️ integers (numInt = ${numInt}, type ${typeof numInt})
+        ➡️ floating point numbers (numFloat = ${numFloat}, type ${typeof numFloat})
+
     `;
 }
 

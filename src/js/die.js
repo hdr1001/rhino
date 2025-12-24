@@ -1,7 +1,7 @@
 /* ********************************************************************
 //
 // Notes reading JavaScript: The Definitive Guide, 6th Edition
-// Chapter 3.4: undefined & null
+// Constructor function to demonstrate custom object creation
 //
 // Copyright 2025 Hans de Rooij
 //
@@ -19,34 +19,23 @@
 //
 // ***************************************************************** */
 
-function retUndef() {}
-
-function retUndefParam(p1, p2) { console.log(p1); return p2 }
-
-//undefined
-function undef() {
-    var varUndef, o = {}, arr = ['idx0'];
-    
-    return `
-        varUndef                = ${varUndef}
-        o.prop                  = ${o.prop}
-        arr[1]                  = ${arr[1]}
-        retUndef()              = ${retUndef()}
-        retUndefParam(\'🤓\')   = ${retUndefParam('🤓')}
-
-    `;
+export default function Die(lang) {
+   this.lang = lang || 'en';
+   this.doThrow();
 }
 
-//Undefined equals null?
-function undefNull() {
-    return `
-        undefined == null ➡️ ${undefined == null}
-        undefined === null ➡️ ${undefined === null}
-
-    `;
-}
-
-export default {
-    undef,
-    undefNull
+//Add the shared object logic to the constructor's prototype
+Die.prototype.doThrow = function() {
+   return this.numDots = Math.floor(Math.random() * 6) + 1;
 };
+
+Die.prototype.toString = function() {
+   if(this.lang !== 'en') {
+      throw new Error('Only English supported');
+   }
+   else {
+      return 'You threw -> ' + this.numDots;
+   }
+};
+
+Die.prototype.valueOf = function() { return this.numDots };

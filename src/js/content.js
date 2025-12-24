@@ -29,6 +29,8 @@ import * as boole from './ch03/p03_boole.js';
 import typeUndefNull from './ch03/p04_undef_null.js';
 import modThis from './ch03/p05_gbl_obj.js';
 import primitiveWrappers from './ch03/p06_wrap_obj.js';
+import byValue_v_byRef from './ch03/p07_by_ref_val.js';
+import conv from './ch03/p08_type_conv.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
@@ -77,7 +79,18 @@ const functionality = [
 
     { chapter: 3, paragraph: 5, num: 15, desc: 'Global this', code: modThis },
 
-    { chapter: 3, paragraph: 6, num: 16, desc: 'Wrapper objects', code: primitiveWrappers }
+    { chapter: 3, paragraph: 6, num: 16, desc: 'Wrapper objects', code: primitiveWrappers },
+
+    { chapter: 3, paragraph: 7, num: 17, desc: 'By ref v. by val', code: byValue_v_byRef },
+
+    { chapter: 3, paragraph: 8, num: 18, desc: 'Type conversions', code: conv.typeConv },
+    { chapter: 3, paragraph: 8, num: 19, desc: 'Equality', code: conv.equality },
+    { chapter: 3, paragraph: 8, num: 20, desc: 'Strict equality', code: conv.strictEquality },
+    { chapter: 3, paragraph: 8, num: 21, desc: 'Number to string', code: conv.numToStr },
+    { chapter: 3, paragraph: 8, num: 22, desc: 'String to number', code: conv.strToNum },
+    { chapter: 3, paragraph: 8, num: 23, desc: 'Array to string', code: conv.arrToStr },
+    { chapter: 3, paragraph: 8, num: 24, desc: 'Get date', code: conv.getDate },
+    { chapter: 3, paragraph: 8, num: 25, desc: 'Throw die', code: conv.throwDie }
 ];
 
 export { chapters, paragraphs, functionality };

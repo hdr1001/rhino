@@ -23,9 +23,16 @@
 //In a JavaScript module, top-level this is undefined.
 var modLevelThis = this;
 
-var objInstance = {
+function fEchoName() { return this.name }
+
+var objInstance1 = {
     name: 'I\'m an object instance',
-    echoName: function(){ return this.name }
+    echoName: fEchoName
+};
+
+var objInstance2 = {
+    name: 'I\'m an other object instance',
+    echoName: fEchoName
 };
 
 //The this reference in modules
@@ -42,7 +49,8 @@ export default function modThis() {
         globalThis.isNaN === isNaN is ${globalThis.isNaN === isNaN}
         globalThis.Math === Math is ${globalThis.Math === Math}
         ${gblThisWindow ? gblThisWindow : 'No window object available'}
-        this.name evaluates to "${objInstance.echoName()}"
+        this.name evaluates to "${objInstance1.echoName()}"
+        this.name evaluates to "${objInstance2.echoName()}"
 
     `;
 }
