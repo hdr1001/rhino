@@ -31,6 +31,8 @@ import modThis from './ch03/p05_gbl_obj.js';
 import primitiveWrappers from './ch03/p06_wrap_obj.js';
 import byValue_v_byRef from './ch03/p07_by_ref_val.js';
 import conv from './ch03/p08_type_conv.js';
+import modLevelVars from './ch03/p09_var_decl.js';
+//import scope from './ch03/p10_var_scope.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
@@ -90,7 +92,10 @@ const functionality = [
     { chapter: 3, paragraph: 8, num: 22, desc: 'String to number', code: conv.strToNum },
     { chapter: 3, paragraph: 8, num: 23, desc: 'Array to string', code: conv.arrToStr },
     { chapter: 3, paragraph: 8, num: 24, desc: 'Get date', code: conv.getDate },
-    { chapter: 3, paragraph: 8, num: 25, desc: 'Throw die', code: conv.throwDie }
+    { chapter: 3, paragraph: 8, num: 25, desc: 'Throw die', code: conv.throwDie },
+
+    { chapter: 3, paragraph: 9, num: 26, desc: 'Module level variables', code: modLevelVars },
+    { chapter: 3, paragraph: 9, num: 27, desc: 'Global object property', code: globalThis.typoo }
 ];
 
 export { chapters, paragraphs, functionality };

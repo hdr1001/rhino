@@ -50,7 +50,10 @@ function updatePre() {
     //tables.functionality.actNum can have a null value!
     try {
         switch(typeof functionality[tables.functionality.actNum].code) {
-            case 'string', 'number', 'boolean', 'undefined':
+            case 'string':
+            case 'number':
+            case 'boolean':
+            case 'undefined':
                 textContent = functionality[tables.functionality.actNum].code;
                 break;
             case 'function':
