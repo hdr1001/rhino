@@ -32,11 +32,14 @@ import primitiveWrappers from './ch03/p06_wrap_obj.js';
 import byValue_v_byRef from './ch03/p07_by_ref_val.js';
 import conv from './ch03/p08_type_conv.js';
 import modLevelVars from './ch03/p09_var_decl.js';
-//import scope from './ch03/p10_var_scope.js';
+import scope from './ch03/p10_var_scope.js';
+import * as primary from './ch04/p01_expr_prim.js';
+import literals from './ch04/p02_expr_obj.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
-    { num: 3, desc: 'Types, values and variables' }
+    { num: 3, desc: 'Types, values and variables' },
+    { num: 4, desc: 'Expressions and operators' }
 ];
 
 const paragraphs = [
@@ -54,7 +57,10 @@ const paragraphs = [
     { chapter: 3, num: 7, desc: 'Immutable v. mutable' },
     { chapter: 3, num: 8, desc: 'Type conversions' },
     { chapter: 3, num: 9, desc: 'Variable declaration' },
-    { chapter: 3, num: 10, desc: 'Variable scope' }
+    { chapter: 3, num: 10, desc: 'Variable scope' },
+
+    { chapter: 4, num: 1, desc: 'Primary expressions' },
+    { chapter: 4, num: 2, desc: 'Object & Array Initializers' }
 ];
 
 const functionality = [
@@ -95,7 +101,17 @@ const functionality = [
     { chapter: 3, paragraph: 8, num: 25, desc: 'Throw die', code: conv.throwDie },
 
     { chapter: 3, paragraph: 9, num: 26, desc: 'Module level variables', code: modLevelVars },
-    { chapter: 3, paragraph: 9, num: 27, desc: 'Global object property', code: globalThis.typoo }
+    { chapter: 3, paragraph: 9, num: 27, desc: 'Global object property', code: globalThis.typoo },
+
+    { chapter: 3, paragraph: 10, num: 28, desc: 'Exported variable', code: scope.modGlobal },
+    { chapter: 3, paragraph: 10, num: 29, desc: 'JS function scope', code: scope.varScope },
+    { chapter: 3, paragraph: 10, num: 30, desc: 'Local var precendence', code: scope.localPrecedence },
+    { chapter: 3, paragraph: 10, num: 31, desc: 'Different lexical scope', code: scope.diffLexicalScope },
+    { chapter: 3, paragraph: 10, num: 32, desc: 'Variable hoisting', code: scope.hoisting },
+
+    { chapter: 4, paragraph: 1, num: 33, desc: 'Primary expressions', code: primary.expressions },
+
+    { chapter: 4, paragraph: 2, num: 34, desc: 'Object literals', code: literals }
 ];
 
 export { chapters, paragraphs, functionality };
