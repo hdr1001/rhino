@@ -57,7 +57,15 @@ function updatePre() {
                 textContent = functionality[tables.functionality.actNum].code;
                 break;
             case 'function':
-                textContent = functionality[tables.functionality.actNum].code()
+                if(functionality[tables.functionality.actNum].params) {
+                    textContent = functionality[tables.functionality.actNum].code.apply(
+                        null,
+                        functionality[tables.functionality.actNum].params
+                    )
+                }
+                else {
+                    textContent = functionality[tables.functionality.actNum].code()
+                }
         }
     }
     catch(err) {

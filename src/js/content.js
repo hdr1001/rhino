@@ -35,6 +35,10 @@ import modLevelVars from './ch03/p09_var_decl.js';
 import scope from './ch03/p10_var_scope.js';
 import * as primary from './ch04/p01_expr_prim.js';
 import literals from './ch04/p02_expr_obj.js';
+import anonFunc from './ch04/p03_expr_func.js';
+import { propAccess } from './ch04/p04_expr_prop.js';
+import { func, method } from './ch04/p05_expr_invocation.js';
+import { throw2Dice } from './ch04/p06_obj_creation.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
@@ -60,7 +64,18 @@ const paragraphs = [
     { chapter: 3, num: 10, desc: 'Variable scope' },
 
     { chapter: 4, num: 1, desc: 'Primary expressions' },
-    { chapter: 4, num: 2, desc: 'Object & Array Initializers' }
+    { chapter: 4, num: 2, desc: 'Object & Array Initializers' },
+    { chapter: 4, num: 3, desc: 'Function literal' },
+    { chapter: 4, num: 4, desc: 'Property access' },
+    { chapter: 4, num: 5, desc: 'Invocation expressions' },
+    { chapter: 4, num: 6, desc: 'Object creation' },
+    { chapter: 4, num: 7, desc: 'Operators expressions' },
+    { chapter: 4, num: 8, desc: 'Arithmetic expressions' },
+    { chapter: 4, num: 9, desc: 'Relational expressions' },
+    { chapter: 4, num: 10, desc: 'Logical expressions' },
+    { chapter: 4, num: 11, desc: 'Assignment expressions' },
+    { chapter: 4, num: 12, desc: 'Evaluation expressions' },
+    { chapter: 4, num: 13, desc: 'Miscellaneous operators' }
 ];
 
 const functionality = [
@@ -111,7 +126,16 @@ const functionality = [
 
     { chapter: 4, paragraph: 1, num: 33, desc: 'Primary expressions', code: primary.expressions },
 
-    { chapter: 4, paragraph: 2, num: 34, desc: 'Object literals', code: literals }
+    { chapter: 4, paragraph: 2, num: 34, desc: 'Object literals', code: literals },
+
+    { chapter: 4, paragraph: 3, num: 35, desc: 'Function expression', code: anonFunc, params: ['👋'] },
+
+    { chapter: 4, paragraph: 4, num: 36, desc: 'Property access', code: propAccess },
+
+    { chapter: 4, paragraph: 5, num: 37, desc: 'Function invocation', code: func },
+    { chapter: 4, paragraph: 5, num: 38, desc: 'Method invocation', code: method },
+
+    { chapter: 4, paragraph: 6, num: 39, desc: 'Method invocation', code: throw2Dice }
 ];
 
 export { chapters, paragraphs, functionality };
