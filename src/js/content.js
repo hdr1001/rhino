@@ -39,6 +39,9 @@ import anonFunc from './ch04/p03_expr_func.js';
 import { propAccess } from './ch04/p04_expr_prop.js';
 import { func, method } from './ch04/p05_expr_invocation.js';
 import { throw2Dice } from './ch04/p06_obj_creation.js';
+import ops from './ch04/p07_operators.js';
+import relational from './ch04/p09_expr_relational.js';
+import shortCircuiting from './ch04/p10_expr_logical.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
@@ -64,13 +67,12 @@ const paragraphs = [
     { chapter: 3, num: 10, desc: 'Variable scope' },
 
     { chapter: 4, num: 1, desc: 'Primary expressions' },
-    { chapter: 4, num: 2, desc: 'Object & Array Initializers' },
+    { chapter: 4, num: 2, desc: 'Object & array initializers' },
     { chapter: 4, num: 3, desc: 'Function literal' },
     { chapter: 4, num: 4, desc: 'Property access' },
     { chapter: 4, num: 5, desc: 'Invocation expressions' },
     { chapter: 4, num: 6, desc: 'Object creation' },
-    { chapter: 4, num: 7, desc: 'Operators expressions' },
-    { chapter: 4, num: 8, desc: 'Arithmetic expressions' },
+    { chapter: 4, num: 7, desc: 'Operator expressions' },
     { chapter: 4, num: 9, desc: 'Relational expressions' },
     { chapter: 4, num: 10, desc: 'Logical expressions' },
     { chapter: 4, num: 11, desc: 'Assignment expressions' },
@@ -135,7 +137,19 @@ const functionality = [
     { chapter: 4, paragraph: 5, num: 37, desc: 'Function invocation', code: func },
     { chapter: 4, paragraph: 5, num: 38, desc: 'Method invocation', code: method },
 
-    { chapter: 4, paragraph: 6, num: 39, desc: 'Method invocation', code: throw2Dice }
+    { chapter: 4, paragraph: 6, num: 39, desc: 'Object instantiation', code: throw2Dice },
+
+    { chapter: 4, paragraph: 7, num: 40, desc: 'Overview', code: ops.operatorOverview },
+    { chapter: 4, paragraph: 7, num: 41, desc: 'Precedence', code: ops.precedence },
+    { chapter: 4, paragraph: 7, num: 42, desc: 'Associativity', code: ops.associativity },
+    { chapter: 4, paragraph: 7, num: 43, desc: 'Increment', code: ops.increment },
+    { chapter: 4, paragraph: 7, num: 44, desc: 'Tricky', code: ops.trickyJS },
+
+    { chapter: 4, paragraph: 9, num: 45, desc: 'Equality', code: relational.equalityOpIsTricky },
+    { chapter: 4, paragraph: 9, num: 46, desc: 'By reference', code: relational.refComparison },
+    { chapter: 4, paragraph: 9, num: 47, desc: 'Operators', code: relational.comparisonOperators },
+
+    { chapter: 4, paragraph: 10, num: 48, desc: 'Short circuit', code: shortCircuiting },
 ];
 
 export { chapters, paragraphs, functionality };
