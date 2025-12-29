@@ -42,6 +42,9 @@ import { throw2Dice } from './ch04/p06_obj_creation.js';
 import ops from './ch04/p07_operators.js';
 import relational from './ch04/p09_expr_relational.js';
 import shortCircuiting from './ch04/p10_expr_logical.js';
+import assign from './ch04/p11_expr_assign.js';
+import execEval from './ch04/p12_eval.js';
+import miscOps from './ch04/p13_misc_ops.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
@@ -150,6 +153,16 @@ const functionality = [
     { chapter: 4, paragraph: 9, num: 47, desc: 'Operators', code: relational.comparisonOperators },
 
     { chapter: 4, paragraph: 10, num: 48, desc: 'Short circuit', code: shortCircuiting },
+
+    { chapter: 4, paragraph: 11, num: 49, desc: 'Assignment expression', code: assign },
+
+    { chapter: 4, paragraph: 12, num: 50, desc: 'Eval == evil', code: execEval },
+
+    { chapter: 4, paragraph: 13, num: 51, desc: 'Conditional operator', code: miscOps.conditionalOp },
+    { chapter: 4, paragraph: 13, num: 52, desc: 'Type of', code: miscOps.typeOf },
+    { chapter: 4, paragraph: 13, num: 53, desc: 'delete', code: miscOps.del },
+    { chapter: 4, paragraph: 13, num: 54, desc: 'void', code: miscOps.doVoid },
+    { chapter: 4, paragraph: 13, num: 55, desc: 'Comma', code: miscOps.comma }
 ];
 
 export { chapters, paragraphs, functionality };
