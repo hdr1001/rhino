@@ -45,11 +45,16 @@ import shortCircuiting from './ch04/p10_expr_logical.js';
 import assign from './ch04/p11_expr_assign.js';
 import execEval from './ch04/p12_eval.js';
 import miscOps from './ch04/p13_misc_ops.js';
+import decl from './ch05/p03_stmt_decl.js';
+import cond from './ch05/p04_stmt_cond.js';
+import loop from './ch05/p05_stmt_loop.js';
+import breakCont from './ch05/p06_stmt_jump.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
     { num: 3, desc: 'Types, values and variables' },
-    { num: 4, desc: 'Expressions and operators' }
+    { num: 4, desc: 'Expressions and operators' },
+    { num: 5, desc: 'Statements' }
 ];
 
 const paragraphs = [
@@ -80,7 +85,12 @@ const paragraphs = [
     { chapter: 4, num: 10, desc: 'Logical expressions' },
     { chapter: 4, num: 11, desc: 'Assignment expressions' },
     { chapter: 4, num: 12, desc: 'Evaluation expressions' },
-    { chapter: 4, num: 13, desc: 'Miscellaneous operators' }
+    { chapter: 4, num: 13, desc: 'Miscellaneous operators' },
+
+    { chapter: 5, num: 3, desc: 'Declaration statements' },
+    { chapter: 5, num: 4, desc: 'Conditional statements' },
+    { chapter: 5, num: 5, desc: 'Loops' },
+    { chapter: 5, num: 6, desc: 'Jump statements' }
 ];
 
 const functionality = [
@@ -162,7 +172,26 @@ const functionality = [
     { chapter: 4, paragraph: 13, num: 52, desc: 'Type of', code: miscOps.typeOf },
     { chapter: 4, paragraph: 13, num: 53, desc: 'delete', code: miscOps.del },
     { chapter: 4, paragraph: 13, num: 54, desc: 'void', code: miscOps.doVoid },
-    { chapter: 4, paragraph: 13, num: 55, desc: 'Comma', code: miscOps.comma }
+    { chapter: 4, paragraph: 13, num: 55, desc: 'Comma', code: miscOps.comma },
+
+    { chapter: 5, paragraph: 3, num: 56, desc: 'Variable', code: decl.three },
+    { chapter: 5, paragraph: 3, num: 57, desc: 'Function', code: decl.timesTwo, params: [6] },
+
+    { chapter: 5, paragraph: 4, num: 58, desc: 'If statement', code: cond.isDivisible, params: [9, 3] },
+    { chapter: 5, paragraph: 4, num: 59, desc: 'If else', code: cond.isDivisibleMsg, params: [8, 3] },
+    { chapter: 5, paragraph: 4, num: 60, desc: 'Try catch', code: cond.isDivisibleMsgTry, params: ['a', 3] },
+    { chapter: 5, paragraph: 4, num: 61, desc: 'Switch (break)', code: cond.aSwitch, params: [4] },
+    { chapter: 5, paragraph: 4, num: 62, desc: 'Switch (return)', code: cond.aSwitchv2, params: ['three'] },
+
+    { chapter: 5, paragraph: 5, num: 63, desc: 'While loop', code: loop.loopWhile },
+    { chapter: 5, paragraph: 5, num: 64, desc: 'Do while loop', code: loop.loopDoWhile },
+    { chapter: 5, paragraph: 5, num: 65, desc: 'For loop', code: loop.loopFor },
+    { chapter: 5, paragraph: 5, num: 66, desc: 'For loop (v2)', code: loop.loopForv2 },
+    { chapter: 5, paragraph: 5, num: 67, desc: 'For in', code: loop.loopForIn },
+    { chapter: 5, paragraph: 5, num: 68, desc: 'For in (lvalue)', code: loop.loopForInLVal },
+
+    { chapter: 5, paragraph: 6, num: 69, desc: 'Loop continue', code: breakCont.loopContinue },
+    { chapter: 5, paragraph: 6, num: 70, desc: 'Loop break', code: breakCont.loopBreak }
 ];
 
 export { chapters, paragraphs, functionality };
