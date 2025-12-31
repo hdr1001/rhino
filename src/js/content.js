@@ -49,12 +49,14 @@ import decl from './ch05/p03_stmt_decl.js';
 import cond from './ch05/p04_stmt_cond.js';
 import loop from './ch05/p05_stmt_loop.js';
 import breakCont from './ch05/p06_stmt_jump.js';
+import objCreate from './ch06/p01_obj_create.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
     { num: 3, desc: 'Types, values and variables' },
     { num: 4, desc: 'Expressions and operators' },
-    { num: 5, desc: 'Statements' }
+    { num: 5, desc: 'Statements' },
+    { num: 6, desc: 'Objects' }
 ];
 
 const paragraphs = [
@@ -90,7 +92,9 @@ const paragraphs = [
     { chapter: 5, num: 3, desc: 'Declaration statements' },
     { chapter: 5, num: 4, desc: 'Conditional statements' },
     { chapter: 5, num: 5, desc: 'Loops' },
-    { chapter: 5, num: 6, desc: 'Jump statements' }
+    { chapter: 5, num: 6, desc: 'Jump statements' },
+
+    { chapter: 6, num: 1, desc: 'Creating objects' }
 ];
 
 const functionality = [
@@ -191,7 +195,14 @@ const functionality = [
     { chapter: 5, paragraph: 5, num: 68, desc: 'For in (lvalue)', code: loop.loopForInLVal },
 
     { chapter: 5, paragraph: 6, num: 69, desc: 'Loop continue', code: breakCont.loopContinue },
-    { chapter: 5, paragraph: 6, num: 70, desc: 'Loop break', code: breakCont.loopBreak }
+    { chapter: 5, paragraph: 6, num: 70, desc: 'Loop break', code: breakCont.loopBreak },
+
+    { chapter: 6, paragraph: 1, num: 71, desc: 'Using literal', code: objCreate.objCreate },
+    { chapter: 6, paragraph: 1, num: 72, desc: 'Using literal (v2)', code: objCreate.objCreateDie },
+    { chapter: 6, paragraph: 1, num: 73, desc: 'New with constructor', code: objCreate.objCreateNew },
+    { chapter: 6, paragraph: 1, num: 74, desc: 'New w. constructor (v2)', code: objCreate.arrCreateNew },
+    { chapter: 6, paragraph: 1, num: 75, desc: 'New w. custom constructor', code: objCreate.objCreateDieNew },
+    { chapter: 6, paragraph: 1, num: 76, desc: 'Object.create method', code: objCreate.objCreateProto }
 ];
 
 export { chapters, paragraphs, functionality };
