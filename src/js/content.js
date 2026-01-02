@@ -51,6 +51,10 @@ import loop from './ch05/p05_stmt_loop.js';
 import breakCont from './ch05/p06_stmt_jump.js';
 import objCreate from './ch06/p01_obj_create.js';
 import objAccess from './ch06/p02_obj_prop.js';
+import objDel from './ch06/p03_del_prop.js';
+import objTest from './ch06/p04_test_prop.js';
+import objEnum from './ch06/p05_enum_prop.js';
+import objGetSet from './ch06/p06_get_set.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
@@ -96,7 +100,11 @@ const paragraphs = [
     { chapter: 5, num: 6, desc: 'Jump statements' },
 
     { chapter: 6, num: 1, desc: 'Creating objects' },
-    { chapter: 6, num: 2, desc: 'Object property access' }
+    { chapter: 6, num: 2, desc: 'Property access' },
+    { chapter: 6, num: 3, desc: 'Property delete' },
+    { chapter: 6, num: 4, desc: 'Property testing' },
+    { chapter: 6, num: 5, desc: 'Property enumeration' },
+    { chapter: 6, num: 6, desc: 'Getters & setters' }
 ];
 
 const functionality = [
@@ -209,7 +217,22 @@ const functionality = [
     { chapter: 6, paragraph: 2, num: 77, desc: 'Property access', code: objAccess.dotOp },
     { chapter: 6, paragraph: 2, num: 78, desc: 'Prototype property access', code: objAccess.objCreateProto },
     { chapter: 6, paragraph: 2, num: 79, desc: 'Setting a property', code: objAccess.doSetProp },
-    { chapter: 6, paragraph: 2, num: 80, desc: 'Setting a readonly property', code: objAccess.doSetPropReadOnly }
+    { chapter: 6, paragraph: 2, num: 80, desc: 'Setting a readonly property', code: objAccess.doSetPropReadOnly },
+
+    { chapter: 6, paragraph: 3, num: 81, desc: 'Deleting object properties', code: objDel },
+
+    { chapter: 6, paragraph: 4, num: 82, desc: 'Bracket notation', code: objTest.invokeTestFunction },
+    { chapter: 6, paragraph: 4, num: 83, desc: 'in operator', code: objTest.invokeTestFunction, params: [1] },
+    { chapter: 6, paragraph: 4, num: 84, desc: 'hasOwnProperty method', code: objTest.invokeTestFunction, params: [2] },
+    { chapter: 6, paragraph: 4, num: 85, desc: 'propertyIsEnumerable method', code: objTest.invokeTestFunction, params: [3] },
+    { chapter: 6, paragraph: 4, num: 86, desc: 'Test non-enumerable', code: objTest.testNonEnumerable },
+
+    { chapter: 6, paragraph: 5, num: 87, desc: 'for .. in', code: objEnum },
+    { chapter: 6, paragraph: 5, num: 88, desc: 'Object.keys(obj)', code: objEnum, params: [1] },
+    { chapter: 6, paragraph: 5, num: 89, desc: 'Object.getOwnPropertyNames(obj)', code: objEnum, params: [2] },
+
+    { chapter: 6, paragraph: 6, num: 90, desc: 'Getter (objCreate)', code: objGetSet.objCreate },
+    { chapter: 6, paragraph: 6, num: 91, desc: 'Getter (objSetProto)', code: objGetSet.objSetProto, params: [1] }
 ];
 
 export { chapters, paragraphs, functionality };
