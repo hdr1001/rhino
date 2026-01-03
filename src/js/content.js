@@ -55,6 +55,9 @@ import objDel from './ch06/p03_del_prop.js';
 import objTest from './ch06/p04_test_prop.js';
 import objEnum from './ch06/p05_enum_prop.js';
 import objGetSet from './ch06/p06_get_set.js';
+import objAttr from './ch06/p07_attr_prop.js';
+import { listClassAttr, extAttr } from './ch06/p08_obj_attr.js';
+import objJSON from './ch06/p09_obj_serial.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
@@ -104,7 +107,10 @@ const paragraphs = [
     { chapter: 6, num: 3, desc: 'Property delete' },
     { chapter: 6, num: 4, desc: 'Property testing' },
     { chapter: 6, num: 5, desc: 'Property enumeration' },
-    { chapter: 6, num: 6, desc: 'Getters & setters' }
+    { chapter: 6, num: 6, desc: 'Getters & setters' },
+    { chapter: 6, num: 7, desc: 'Property attributes' },
+    { chapter: 6, num: 8, desc: 'Object attributes' },
+    { chapter: 6, num: 9, desc: 'Object serializing' }
 ];
 
 const functionality = [
@@ -232,7 +238,16 @@ const functionality = [
     { chapter: 6, paragraph: 5, num: 89, desc: 'Object.getOwnPropertyNames(obj)', code: objEnum, params: [2] },
 
     { chapter: 6, paragraph: 6, num: 90, desc: 'Getter (objCreate)', code: objGetSet.objCreate },
-    { chapter: 6, paragraph: 6, num: 91, desc: 'Getter (objSetProto)', code: objGetSet.objSetProto, params: [1] }
+    { chapter: 6, paragraph: 6, num: 91, desc: 'Getter (objSetProto)', code: objGetSet.objSetProto, params: [1] },
+
+    { chapter: 6, paragraph: 7, num: 92, desc: 'Manipulate attributes', code: objAttr },
+
+    { chapter: 6, paragraph: 8, num: 93, desc: 'Class attribute', code: listClassAttr },
+    { chapter: 6, paragraph: 8, num: 94, desc: 'Prevent extensions', code: extAttr },
+    { chapter: 6, paragraph: 8, num: 95, desc: 'Seal', code: extAttr, params: [1] },
+    { chapter: 6, paragraph: 8, num: 96, desc: 'Freeze', code: extAttr, params: [2] },
+
+    { chapter: 6, paragraph: 9, num: 97, desc: 'To JSON', code: objJSON },
 ];
 
 export { chapters, paragraphs, functionality };
