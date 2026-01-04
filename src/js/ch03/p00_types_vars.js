@@ -19,7 +19,7 @@
 //
 // ***************************************************************** */
 
-import { globalConsts as globals } from '../globals.js';
+import globals from '../globals.js';
 
 var moduleLevelVar = 1.1301;
 
@@ -32,7 +32,7 @@ function globalModuleLevelVars() {
         console.error(err.constructor.name + ': ' + err.message);
     }
 
-    var ret = 'globals.level = ' + globals.level.toString();
+    var ret = 'globals.example.level = ' + globals.example.level.toString();
 
     ret += ', moduleLevelVar = ' + moduleLevelVar.toFixed(2);
 

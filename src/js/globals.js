@@ -19,6 +19,24 @@
 //
 // ***************************************************************** */
 
-export const globalConsts = {
-    level: 42
+import Die from './die.js';
+
+var example = { level: 42 };
+
+//Array literal
+var arrTypes = [ //Array with different types of elements
+    null,
+    undefined,
+    true,
+    3.14,
+    'A string',
+    { x: 1, y: 2 }, //Object literal,
+    [1, 2, 3], //Array literal
+    function() { return 'An anonymous function' },
+    new Die() //Instance of the Die constructor function
+];
+
+export default {
+    example,
+    arrTypes
 };

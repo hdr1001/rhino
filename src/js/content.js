@@ -58,13 +58,16 @@ import objGetSet from './ch06/p06_get_set.js';
 import objAttr from './ch06/p07_attr_prop.js';
 import { listClassAttr, extAttr } from './ch06/p08_obj_attr.js';
 import objJSON from './ch06/p09_obj_serial.js';
+import arrCreate from './ch07/p01_arr_create.js';
+import arrIdx from './ch07/p02_arr_idx.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
     { num: 3, desc: 'Types, values and variables' },
     { num: 4, desc: 'Expressions and operators' },
     { num: 5, desc: 'Statements' },
-    { num: 6, desc: 'Objects' }
+    { num: 6, desc: 'Objects' },
+    { num: 7, desc: 'Arrays' }
 ];
 
 const paragraphs = [
@@ -110,7 +113,10 @@ const paragraphs = [
     { chapter: 6, num: 6, desc: 'Getters & setters' },
     { chapter: 6, num: 7, desc: 'Property attributes' },
     { chapter: 6, num: 8, desc: 'Object attributes' },
-    { chapter: 6, num: 9, desc: 'Object serializing' }
+    { chapter: 6, num: 9, desc: 'Object serializing' },
+
+    { chapter: 7, num: 1, desc: 'Instantiation' },
+    { chapter: 7, num: 2, desc: 'Element access' }
 ];
 
 const functionality = [
@@ -248,6 +254,10 @@ const functionality = [
     { chapter: 6, paragraph: 8, num: 96, desc: 'Freeze', code: extAttr, params: [2] },
 
     { chapter: 6, paragraph: 9, num: 97, desc: 'To JSON', code: objJSON },
+
+    { chapter: 7, paragraph: 1, num: 98, desc: 'Array literal & new', code: arrCreate },
+
+    { chapter: 7, paragraph: 2, num: 99, desc: 'Creative with indexes', code: arrIdx }
 ];
 
 export { chapters, paragraphs, functionality };
