@@ -60,6 +60,8 @@ import { listClassAttr, extAttr } from './ch06/p08_obj_attr.js';
 import objJSON from './ch06/p09_obj_serial.js';
 import arrCreate from './ch07/p01_arr_create.js';
 import arrIdx from './ch07/p02_arr_idx.js';
+import arrLen from './ch07/p04_arr_length.js';
+import arrIterate from './ch07/p06_arr_iter.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
@@ -116,7 +118,9 @@ const paragraphs = [
     { chapter: 6, num: 9, desc: 'Object serializing' },
 
     { chapter: 7, num: 1, desc: 'Instantiation' },
-    { chapter: 7, num: 2, desc: 'Element access' }
+    { chapter: 7, num: 2, desc: 'Element access' },
+    { chapter: 7, num: 4, desc: 'Length property' },
+    { chapter: 7, num: 6, desc: 'Iteration & deletion' }
 ];
 
 const functionality = [
@@ -257,7 +261,11 @@ const functionality = [
 
     { chapter: 7, paragraph: 1, num: 98, desc: 'Array literal & new', code: arrCreate },
 
-    { chapter: 7, paragraph: 2, num: 99, desc: 'Creative with indexes', code: arrIdx }
+    { chapter: 7, paragraph: 2, num: 99, desc: 'Creative with indexes', code: arrIdx },
+
+    { chapter: 7, paragraph: 4, num: 100, desc: 'Length and sparse', code: arrLen },
+
+    { chapter: 7, paragraph: 6, num: 101, desc: 'iterate & delete', code: arrIterate }
 ];
 
 export { chapters, paragraphs, functionality };

@@ -26,7 +26,7 @@ const getArrTypes = () => globals.arrTypes;
 export default function arrIdx() {
     const arrRet = [];
 
-    const arrTypes = globals.arrTypes;
+    const arrTypes = [...globals.arrTypes]; //ES6 spread syntax to create a shallow copy
 
     for(var i = 0; i < arrTypes.length; i++) {
         arrRet.push(`arrTypes[${i}] => ${arrTypes[i]}`);
@@ -38,7 +38,7 @@ export default function arrIdx() {
 
     arrRet.push(`arrTypes[5].x => ${arrTypes[5].x}`);
 
-    arrRet.push(`arrTypes[arrTypes[5].x] => ${arrTypes[arrTypes[5].x]}`);
+    arrRet.push(`arrTypes[arrTypes[5].x + 2] => ${arrTypes[arrTypes[5].x + 2]}`);
 
     arrRet.push(`getArrTypes()[4] => ${getArrTypes()[4]}`);
 
