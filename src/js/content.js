@@ -62,6 +62,7 @@ import arrCreate from './ch07/p01_arr_create.js';
 import arrIdx from './ch07/p02_arr_idx.js';
 import arrLen from './ch07/p04_arr_length.js';
 import arrIterate from './ch07/p06_arr_iter.js';
+import arrMethods from './ch07/p08_arr_method.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
@@ -120,7 +121,8 @@ const paragraphs = [
     { chapter: 7, num: 1, desc: 'Instantiation' },
     { chapter: 7, num: 2, desc: 'Element access' },
     { chapter: 7, num: 4, desc: 'Length property' },
-    { chapter: 7, num: 6, desc: 'Iteration & deletion' }
+    { chapter: 7, num: 6, desc: 'Iteration & deletion' },
+    { chapter: 7, num: 8, desc: 'Old school methods' }
 ];
 
 const functionality = [
@@ -265,7 +267,17 @@ const functionality = [
 
     { chapter: 7, paragraph: 4, num: 100, desc: 'Length and sparse', code: arrLen },
 
-    { chapter: 7, paragraph: 6, num: 101, desc: 'iterate & delete', code: arrIterate }
+    { chapter: 7, paragraph: 6, num: 101, desc: 'iterate & delete', code: arrIterate },
+
+    { chapter: 7, paragraph: 8, num: 102, desc: 'Split, join & reverse', code: arrMethods.arrSplitJoinReverse },
+    { chapter: 7, paragraph: 8, num: 103, desc: 'Split, join & toReversed', code: arrMethods.arrSplitJoinToReversed },
+    { chapter: 7, paragraph: 8, num: 104, desc: 'Sort & toSorted', code: arrMethods.arrSort },
+    { chapter: 7, paragraph: 8, num: 105, desc: 'Concatenate', code: arrMethods.arrConcat },
+    { chapter: 7, paragraph: 8, num: 106, desc: 'Slice', code: arrMethods.arrSlice },
+    { chapter: 7, paragraph: 8, num: 107, desc: 'Splice', code: arrMethods.arrSplice },
+    { chapter: 7, paragraph: 8, num: 108, desc: 'Push & pop', code: arrMethods.arrPushPop },
+    { chapter: 7, paragraph: 8, num: 109, desc: 'Shift & unshift', code: arrMethods.arrShiftUnshift },
+    { chapter: 7, paragraph: 8, num: 110, desc: 'Convert to string', code: arrMethods.arrToString }
 ];
 
 export { chapters, paragraphs, functionality };
