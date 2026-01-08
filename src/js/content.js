@@ -64,6 +64,8 @@ import arrLen from './ch07/p04_arr_length.js';
 import arrIterate from './ch07/p06_arr_iter.js';
 import arrMethods from './ch07/p08_arr_method.js';
 import arrMethodsES6 from './ch07/p09_arr_method.js';
+import arrIsArray from './ch07/p10_arr_isarr.js';
+import strAsArr from './ch07/p12_arr_str.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
@@ -124,7 +126,9 @@ const paragraphs = [
     { chapter: 7, num: 4, desc: 'Length property' },
     { chapter: 7, num: 6, desc: 'Iteration & deletion' },
     { chapter: 7, num: 8, desc: 'Old school methods' },
-    { chapter: 7, num: 9, desc: 'ES6 array methods' }
+    { chapter: 7, num: 9, desc: 'ES6 array methods' },
+    { chapter: 7, num: 10, desc: 'Array.isArray()' },
+    { chapter: 7, num: 11, desc: 'Strings As Arrays' }
 ];
 
 const functionality = [
@@ -287,7 +291,11 @@ const functionality = [
     { chapter: 7, paragraph: 9, num: 114, desc: 'Filter (chained with map)', code: arrMethodsES6.arrFilter },
     { chapter: 7, paragraph: 9, num: 115, desc: 'Every & some', code: arrMethodsES6.arrSomeEvery },
     { chapter: 7, paragraph: 9, num: 116, desc: 'Reduce', code: arrMethodsES6.arrReduce },
-    { chapter: 7, paragraph: 9, num: 117, desc: 'Index of & find', code: arrMethodsES6.arrIndexOf }
+    { chapter: 7, paragraph: 9, num: 117, desc: 'Index of & find', code: arrMethodsES6.arrIndexOf },
+
+    { chapter: 7, paragraph: 10, num: 118, desc: 'Array.isArray()', code: arrIsArray },
+
+    { chapter: 7, paragraph: 11, num: 119, desc: 'Strings As Arrays', code: strAsArr }
 ];
 
 export { chapters, paragraphs, functionality };
