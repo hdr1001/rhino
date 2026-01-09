@@ -66,6 +66,7 @@ import arrMethods from './ch07/p08_arr_method.js';
 import arrMethodsES6 from './ch07/p09_arr_method.js';
 import arrIsArray from './ch07/p10_arr_isarr.js';
 import strAsArr from './ch07/p12_arr_str.js';
+import fDef from './ch08/p01_f_def.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
@@ -73,7 +74,8 @@ const chapters = [
     { num: 4, desc: 'Expressions and operators' },
     { num: 5, desc: 'Statements' },
     { num: 6, desc: 'Objects' },
-    { num: 7, desc: 'Arrays' }
+    { num: 7, desc: 'Arrays' },
+    { num: 8, desc: 'Functions' }
 ];
 
 const paragraphs = [
@@ -128,7 +130,9 @@ const paragraphs = [
     { chapter: 7, num: 8, desc: 'Old school methods' },
     { chapter: 7, num: 9, desc: 'ES6 array methods' },
     { chapter: 7, num: 10, desc: 'Array.isArray()' },
-    { chapter: 7, num: 11, desc: 'Strings As Arrays' }
+    { chapter: 7, num: 11, desc: 'Strings As Arrays' },
+
+    { chapter: 8, num: 1, desc: 'Definition' }
 ];
 
 const functionality = [
@@ -295,7 +299,9 @@ const functionality = [
 
     { chapter: 7, paragraph: 10, num: 118, desc: 'Array.isArray()', code: arrIsArray },
 
-    { chapter: 7, paragraph: 11, num: 119, desc: 'Strings As Arrays', code: strAsArr }
+    { chapter: 7, paragraph: 11, num: 119, desc: 'Strings As Arrays', code: strAsArr },
+
+    { chapter: 8, paragraph: 1, num: 120, desc: 'Stements & expressions', code: fDef },
 ];
 
 export { chapters, paragraphs, functionality };
