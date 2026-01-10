@@ -67,6 +67,8 @@ import arrMethodsES6 from './ch07/p09_arr_method.js';
 import arrIsArray from './ch07/p10_arr_isarr.js';
 import strAsArr from './ch07/p12_arr_str.js';
 import fDef from './ch08/p01_f_def.js';
+import fInvoke from './ch08/p02_f_invoke.js';
+import dieFactory from './ch09/p01_factory.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
@@ -75,7 +77,8 @@ const chapters = [
     { num: 5, desc: 'Statements' },
     { num: 6, desc: 'Objects' },
     { num: 7, desc: 'Arrays' },
-    { num: 8, desc: 'Functions' }
+    { num: 8, desc: 'Functions' },
+    { num: 9, desc: 'Classes & modules' }
 ];
 
 const paragraphs = [
@@ -132,7 +135,10 @@ const paragraphs = [
     { chapter: 7, num: 10, desc: 'Array.isArray()' },
     { chapter: 7, num: 11, desc: 'Strings As Arrays' },
 
-    { chapter: 8, num: 1, desc: 'Definition' }
+    { chapter: 8, num: 1, desc: 'Definition' },
+    { chapter: 8, num: 2, desc: 'Invocation' },
+
+    { chapter: 9, num: 1, desc: 'Factory function' }
 ];
 
 const functionality = [
@@ -301,7 +307,15 @@ const functionality = [
 
     { chapter: 7, paragraph: 11, num: 119, desc: 'Strings As Arrays', code: strAsArr },
 
-    { chapter: 8, paragraph: 1, num: 120, desc: 'Stements & expressions', code: fDef },
+    { chapter: 8, paragraph: 1, num: 120, desc: 'Statements & expressions', code: fDef },
+
+    { chapter: 8, paragraph: 2, num: 121, desc: 'Function & IIFE', code: fInvoke.inStrictMode },
+    { chapter: 8, paragraph: 2, num: 122, desc: 'Method', code: fInvoke.invokeMethod },
+    { chapter: 8, paragraph: 2, num: 123, desc: 'Constructor', code: (new fInvoke.Dice(3).toString()) },
+    { chapter: 8, paragraph: 2, num: 124, desc: 'Indirect', code: fInvoke.indirectInvocation },
+    { chapter: 8, paragraph: 2, num: 125, desc: 'Custom isArr', code: fInvoke.isArr, params: [ [] ] },
+
+    { chapter: 9, paragraph: 1, num: 126, desc: 'At work', code: dieFactory, params: [3] }
 ];
 
 export { chapters, paragraphs, functionality };
