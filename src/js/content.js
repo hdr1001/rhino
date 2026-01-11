@@ -68,6 +68,7 @@ import arrIsArray from './ch07/p10_arr_isarr.js';
 import strAsArr from './ch07/p12_arr_str.js';
 import fDef from './ch08/p01_f_def.js';
 import fInvoke from './ch08/p02_f_invoke.js';
+import fArgs from './ch08/p03_f_args.js';
 import dieFactory from './ch09/p01_factory.js';
 
 const chapters = [
@@ -137,6 +138,7 @@ const paragraphs = [
 
     { chapter: 8, num: 1, desc: 'Definition' },
     { chapter: 8, num: 2, desc: 'Invocation' },
+    { chapter: 8, num: 3, desc: 'Arguments' },
 
     { chapter: 9, num: 1, desc: 'Factory function' }
 ];
@@ -315,7 +317,15 @@ const functionality = [
     { chapter: 8, paragraph: 2, num: 124, desc: 'Indirect', code: fInvoke.indirectInvocation },
     { chapter: 8, paragraph: 2, num: 125, desc: 'Custom isArr', code: fInvoke.isArr, params: [ [] ] },
 
-    { chapter: 9, paragraph: 1, num: 126, desc: 'At work', code: dieFactory, params: [3] }
+    { chapter: 8, paragraph: 3, num: 126, desc: 'One argument', code: fArgs.fParams, params: [ 1 ] },
+    { chapter: 8, paragraph: 3, num: 127, desc: 'Two arguments', code: fArgs.fParams, params: [ 1, 'foo' ] },
+    { chapter: 8, paragraph: 3, num: 128, desc: 'One argument (ES6 default)', code: fArgs.fParamsES6, params: [ 42 ] },
+    { chapter: 8, paragraph: 3, num: 129, desc: 'Two arguments (ES6 default)', code: fArgs.fParamsES6, params: [ 3.14, false ] },
+    { chapter: 8, paragraph: 3, num: 130, desc: 'The arguments object', code: fArgs.fArguments, params: [ 3.14, 'foo' ] },
+    { chapter: 8, paragraph: 3, num: 131, desc: 'Passing parameters', code: fArgs.byValOrRef },
+    { chapter: 8, paragraph: 3, num: 132, desc: 'Testing parameters', code: fArgs.sTimesTwo, params: [ 'five' ] },
+
+    { chapter: 9, paragraph: 1, num: 133, desc: 'At work', code: dieFactory, params: [3] }
 ];
 
 export { chapters, paragraphs, functionality };
