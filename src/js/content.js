@@ -69,6 +69,8 @@ import strAsArr from './ch07/p12_arr_str.js';
 import fDef from './ch08/p01_f_def.js';
 import fInvoke from './ch08/p02_f_invoke.js';
 import fArgs from './ch08/p03_f_args.js';
+import flexArrSort from './ch08/p04_f_as_val.js';
+import fClosure from './ch08/p06_f_closure.js';
 import dieFactory from './ch09/p01_factory.js';
 
 const chapters = [
@@ -139,6 +141,8 @@ const paragraphs = [
     { chapter: 8, num: 1, desc: 'Definition' },
     { chapter: 8, num: 2, desc: 'Invocation' },
     { chapter: 8, num: 3, desc: 'Arguments' },
+    { chapter: 8, num: 4, desc: '... as a value' },
+    { chapter: 8, num: 6, desc: 'Closures' },
 
     { chapter: 9, num: 1, desc: 'Factory function' }
 ];
@@ -325,7 +329,11 @@ const functionality = [
     { chapter: 8, paragraph: 3, num: 131, desc: 'Passing parameters', code: fArgs.byValOrRef },
     { chapter: 8, paragraph: 3, num: 132, desc: 'Testing parameters', code: fArgs.sTimesTwo, params: [ 'five' ] },
 
-    { chapter: 9, paragraph: 1, num: 133, desc: 'At work', code: dieFactory, params: [3] }
+    { chapter: 8, paragraph: 4, num: 133, desc: 'Flexible array sorting', code: flexArrSort },
+
+    { chapter: 8, paragraph: 6, num: 134, desc: 'Creating closures', code: fClosure },
+
+    { chapter: 9, paragraph: 1, num: 135, desc: 'At work', code: dieFactory, params: [3] }
 ];
 
 export { chapters, paragraphs, functionality };
