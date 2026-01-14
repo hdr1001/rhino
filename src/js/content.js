@@ -338,8 +338,9 @@ const functionality = [
     { chapter: 8, paragraph: 7, num: 135, desc: 'Function arity', code: fProps.fArity, params: ['one'] },
     { chapter: 8, paragraph: 7, num: 136, desc: 'Function name', code: fProps.fJoeSchmoe },
     { chapter: 8, paragraph: 7, num: 137, desc: 'Function prototype', code: fProps.fProto },
+    { chapter: 8, paragraph: 7, num: 138, desc: 'Methods call & apply', code: fProps.callApply },
 
-    { chapter: 9, paragraph: 1, num: 138, desc: 'At work', code: dieFactory, params: [3] }
+    { chapter: 9, paragraph: 1, num: 139, desc: 'At work', code: dieFactory, params: [3] }
 ];
 
 export { chapters, paragraphs, functionality };

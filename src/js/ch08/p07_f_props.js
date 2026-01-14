@@ -43,13 +43,56 @@ function fProto() {
     return `
         Every function has a prototype property: ${fArity.hasOwnProperty('prototype') ? '✅' : '❌'}
         The constructor property refers back to the function: ${fArity.prototype.constructor === fArity ? '✅' : '❌'}
-        On custom objects constructor refers back to the constructor function: ${die.constructor === Die ? '✅' : '❌'}
 
+        On custom objects constructor refers back to the constructor function: ${die.constructor === Die ? '✅' : '❌'}
+        Object.getPrototypeOf(die) refers to Die.prototype: ${Object.getPrototypeOf(die) === Die.prototype ? '✅' : '❌'}
+        instanceof is determined by the constuctor prototype: ${die instanceof Die ? '✅' : '❌'}
+
+    `;
+}
+
+//Using call & apply below to set the this value
+function cheatDie(numDots) {
+    numDots = numDots || 6;
+
+    if(!(this && 'numDots' in this)) {
+        throw new TypeError('cheatDie is meant to be invoked in the context of a Die instance')
+    }
+
+    if(this.numDots === numDots) {
+        console.log('No need to cheat, the die already shows ' + numDots);
+        return;
+    }
+
+    console.log(`Cheating die, setting the number of dots from ${this.numDots} to ${numDots}`);
+
+    this.numDots = numDots;  //🦹
+}
+
+//The functions call and apply are methods of Function.prototype
+function callApply() {
+    var die = new Die;
+
+    try {
+        //cheatDie(null);
+        //cheatDie.call(die);
+        //cheatDie.call(die, 5);
+        //cheatDie.apply(die);
+        //cheatDie.apply(die, []);
+        cheatDie.apply(die, [6]);
+    }
+    catch(err) {
+        console.error('Caught error: ' + err.message)
+    }
+
+    return `
+        ${die} 🤔
     `;
 }
 
 export default {
     fArity,
     fJoeSchmoe,
-    fProto
+    fProto,
+    callApply
 }
