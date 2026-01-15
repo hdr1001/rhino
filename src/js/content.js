@@ -339,8 +339,10 @@ const functionality = [
     { chapter: 8, paragraph: 7, num: 136, desc: 'Function name', code: fProps.fJoeSchmoe },
     { chapter: 8, paragraph: 7, num: 137, desc: 'Function prototype', code: fProps.fProto },
     { chapter: 8, paragraph: 7, num: 138, desc: 'Methods call & apply', code: fProps.callApply },
+    { chapter: 8, paragraph: 7, num: 139, desc: 'Method bind', code: fProps.bind },
+    { chapter: 8, paragraph: 7, num: 140, desc: 'Function toString()', code: fProps.fArity.toString() },
 
-    { chapter: 9, paragraph: 1, num: 139, desc: 'At work', code: dieFactory, params: [3] }
+    { chapter: 9, paragraph: 1, num: 141, desc: 'At work', code: dieFactory, params: [3] }
 ];
 
 export { chapters, paragraphs, functionality };

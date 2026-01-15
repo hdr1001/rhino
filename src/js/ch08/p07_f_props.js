@@ -90,9 +90,41 @@ function callApply() {
     `;
 }
 
+function bind() {
+    var die = new Die();
+
+    //Bind one parameter
+    var fStr2 = function(a, b) { return a + b };
+
+    var bindFoo = fStr2.bind(null, 'foo & ');
+
+    //Two parameters, second is the value of a class instance   
+    var fStr3 = function(a, b, c) { return a + b + c };
+
+    var bindFooDie = fStr3.bind(null, 'foo ', die);
+
+    //Bind an object instance as this
+    var fThisRef1 = function(parm) { return this.value + parm };
+
+    var bindLiteral = fThisRef1.bind( { value: 39 } );
+
+    var fThisRef2 = function(parm) { return +this + parm };
+
+    var bindDieInstance = fThisRef2.bind( die );
+
+    return `
+        bindFoo('bar') = ${ bindFoo('bar') }
+        bindFooDie(' baz') = ${ bindFooDie(' baz') }
+        bindLiteral(3) = ${ bindLiteral(3) }
+        bindDieInstance(42) = ${ bindDieInstance(42) }
+
+    `;
+}
+
 export default {
     fArity,
     fJoeSchmoe,
     fProto,
-    callApply
+    callApply,
+    bind
 }
