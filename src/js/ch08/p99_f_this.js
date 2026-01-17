@@ -54,42 +54,60 @@ var obj = {
     
         fThisTopLevelNameII: function() {
             return `This version of fThis exists on the nested object: ${obj.name}`; //works
-        },
+        }
     }
 };
 
-retArr.push('In an object method:');
+retArr.push('In object method obj.fThis():');
 retArr.push('obj.fThis() ➡️ ' + obj.fThis());
 retArr.push('');
-retArr.push('In an object method:');
+retArr.push('In object method obj.nested.fThis():');
 retArr.push('obj.nested.fThis() ➡️ ' + obj.nested.fThis());
 retArr.push('');
-retArr.push('In an object method:');
+retArr.push('In object method obj.nested.fThisTopLevelName()');
 retArr.push('obj.nested.fThisTopLevelName() ➡️ ' + obj.nested.fThisTopLevelName());
 retArr.push('');
-retArr.push('In an object method:');
+retArr.push('In object method obj.nested.fThisTopLevelNameII()');
 retArr.push('obj.nested.fThisTopLevelNameII() ➡️ ' + obj.nested.fThisTopLevelNameII());
 retArr.push('');
 
 function ConstructorFunction() {
-    //implicit when called with new
-    //this = {};
-    //Object.setPrototypeOf(this, ConstructorFunction.prototype);
-
     this.name = 'Instance created by ConstructorFunction';
-
-    //Also implicit when called with new
-    //return this;
 }
 
-ConstructorFunction.prototype.fThisOnProto = function() {
-    return `In a method defined on the prototype this evaluates to the object owning the method: ${this.name}`;
+function factoryFunction() {
+    var obj = {};
+    Object.setPrototypeOf(obj, ConstructorFunction.prototype);
+
+    obj.name = 'Instance created by factoryFunction';
+
+    return obj;
 }
+
+var proto = {
+    fThisOnProto: function() {
+        return `In a method defined on the prototype this evaluates to the object owning the method: ${this.name}`;
+    }
+};
+
+ConstructorFunction.prototype = proto;
+factoryFunction.prototype = proto;
 
 var cfInstance = new ConstructorFunction();
 
 retArr.push('In a method defined on the prototype of a constructor function:');
 retArr.push('cfInstance.fThisOnProto() ➡️ ' + cfInstance.fThisOnProto());
+retArr.push('');
+
+var ffInstance = factoryFunction();
+
+retArr.push('In a method defined on the prototype of a factory function:');
+retArr.push('ffInstance.fThisOnProto() ➡️ ' + ffInstance.fThisOnProto());
+retArr.push('');
+
+retArr.push('Because of the shared prototype:');
+retArr.push(`cfInstance instanceof factoryFunction ➡️ ${cfInstance instanceof factoryFunction}`);
+retArr.push(`ffInstance instanceof ConstructorFunction ➡️ ${ffInstance instanceof ConstructorFunction}`);
 retArr.push('');
 
 export default retArr.join('\n');
