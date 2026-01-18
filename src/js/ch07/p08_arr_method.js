@@ -19,7 +19,7 @@
 //
 // ***************************************************************** */
 
-import Die from '../die.js';
+import { Die } from '../die.js';
 
 //Split & join & reverse
 function arrSplitJoinReverse() {

@@ -19,7 +19,7 @@
 //
 // ***************************************************************** */
 
-import Die from '../die.js';
+import { Die } from '../die.js';
 
 function logArr(arr) {
     return `Array content is [${arr.join(', ')}], arr.length = ${arr.length}`;

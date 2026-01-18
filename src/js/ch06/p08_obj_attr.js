@@ -20,7 +20,7 @@
 // ***************************************************************** */
 
 import { classAttr } from '../utils.js';
-import Die from '../die.js';
+import { Die } from '../die.js';
 
 //The prototype attribute
 //Everything you always wanted to know about an object's prototype attribute ➡️ ch04_06_obj_creation.js

@@ -19,7 +19,7 @@
 //
 // ***************************************************************** */
 
-import Die from '../die.js';
+import { Die } from '../die.js';
 
 //Customized version of the doThrow method that uses defineProperty to change numDots
 function doThrow() {

@@ -73,7 +73,7 @@ import flexArrSort from './ch08/p04_f_as_val.js';
 import fClosure from './ch08/p06_f_closure.js';
 import fProps from './ch08/p07_f_props.js';
 import fThis from './ch08/p99_f_this.js';
-import dieFactory from './ch09/p01_factory.js';
+import objInstantiation from './ch09/p01_factory.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
@@ -346,7 +346,9 @@ const functionality = [
 
     { chapter: 8, paragraph: 99, num: 141, desc: 'The this keyword', code: fThis },
 
-    { chapter: 9, paragraph: 1, num: 142, desc: 'At work', code: dieFactory, params: [3] }
+    { chapter: 9, paragraph: 1, num: 142, desc: 'At work', code: objInstantiation.factoryAtWork, params: [3] },
+    { chapter: 9, paragraph: 1, num: 143, desc: 'At work (using Object.create)', code: objInstantiation.factoryObjCreate, params: [5] },
+    { chapter: 9, paragraph: 1, num: 144, desc: 'At work (constructor)', code: objInstantiation.constructorAtWork }
 ];
 
 export { chapters, paragraphs, functionality };

@@ -19,7 +19,7 @@
 //
 // ***************************************************************** */
 
-import Die from '../die.js';
+import { Die } from '../die.js';
 
 /*
    When an object creation expression is evaluated, JavaScript

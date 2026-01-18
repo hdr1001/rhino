@@ -19,7 +19,7 @@
 //
 // ***************************************************************** */
 
-import Die from '../die.js';
+import { Die } from '../die.js';
 
 function closure() {
     var die = new Die;

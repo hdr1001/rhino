@@ -19,7 +19,7 @@
 //
 // ***************************************************************** */
 
-import Die from "../die.js";
+import { Die } from "../die.js";
 
 //Function arity
 function fArity( foo, bar ) {

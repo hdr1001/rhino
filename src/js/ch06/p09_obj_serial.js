@@ -19,7 +19,7 @@
 //
 // ***************************************************************** */
 
-import Die from '../die.js';
+import { Die } from '../die.js';
 
 //Everything you always wanted to know about
 //toString & valueOf ➡️ ./die.js

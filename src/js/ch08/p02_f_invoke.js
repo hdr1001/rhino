@@ -19,7 +19,7 @@
 //
 // ***************************************************************** */
 
-import Die from '../die.js';
+import { Die } from '../die.js';
 
 //Immediately invoked function expression (IIFE)
 var strict = function() { return !this }();

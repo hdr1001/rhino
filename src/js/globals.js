@@ -19,7 +19,7 @@
 //
 // ***************************************************************** */
 
-import Die from './die.js';
+import { Die } from './die.js';
 
 var example = { level: 42 };
 

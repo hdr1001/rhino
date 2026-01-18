@@ -19,7 +19,7 @@
 //
 // ***************************************************************** */
 
-import Die from '../die.js';
+import { Die } from '../die.js';
 
 function conditionalOp() {
     return 'I ❤️ ' + ( 'truthy' ? 'the conditional operator' : 'if statements' );
