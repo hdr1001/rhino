@@ -74,6 +74,7 @@ import fClosure from './ch08/p06_f_closure.js';
 import fProps from './ch08/p07_f_props.js';
 import fThis from './ch08/p99_f_this.js';
 import objInstantiation from './ch09/p01_factory.js';
+import { instanceClassIdentity } from './ch09/p02_class_id.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
@@ -148,7 +149,8 @@ const paragraphs = [
     { chapter: 8, num: 7, desc: 'Properties' },
     { chapter: 8, num: 99, desc: 'this' },
 
-    { chapter: 9, num: 1, desc: 'Factory function' }
+    { chapter: 9, num: 1, desc: 'Factory function' },
+    { chapter: 9, num: 2, desc: 'Class identity' }
 ];
 
 const functionality = [
@@ -348,7 +350,9 @@ const functionality = [
 
     { chapter: 9, paragraph: 1, num: 142, desc: 'At work', code: objInstantiation.factoryAtWork, params: [3] },
     { chapter: 9, paragraph: 1, num: 143, desc: 'At work (using Object.create)', code: objInstantiation.factoryObjCreate, params: [5] },
-    { chapter: 9, paragraph: 1, num: 144, desc: 'At work (constructor)', code: objInstantiation.constructorAtWork }
+    { chapter: 9, paragraph: 1, num: 144, desc: 'At work (constructor)', code: objInstantiation.constructorAtWork },
+
+    { chapter: 9, paragraph: 2, num: 145, desc: 'Instance class ID', code: instanceClassIdentity }
 ];
 
 export { chapters, paragraphs, functionality };
