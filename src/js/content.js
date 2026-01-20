@@ -75,6 +75,7 @@ import fProps from './ch08/p07_f_props.js';
 import fThis from './ch08/p99_f_this.js';
 import objInstantiation from './ch09/p01_factory.js';
 import { instanceClassIdentity } from './ch09/p02_class_id.js';
+import sTest from './test/labelValue.js';
 
 const chapters = [
     { num: 2, desc: 'Lexical structure' },
@@ -84,7 +85,8 @@ const chapters = [
     { num: 6, desc: 'Objects' },
     { num: 7, desc: 'Arrays' },
     { num: 8, desc: 'Functions' },
-    { num: 9, desc: 'Classes & modules' }
+    { num: 9, desc: 'Classes & modules' },
+    { num: 99, desc: 'Test' }
 ];
 
 const paragraphs = [
@@ -150,7 +152,9 @@ const paragraphs = [
     { chapter: 8, num: 99, desc: 'this' },
 
     { chapter: 9, num: 1, desc: 'Factory function' },
-    { chapter: 9, num: 2, desc: 'Class identity' }
+    { chapter: 9, num: 2, desc: 'Class identity' },
+
+    { chapter: 99, num: 0, desc: 'Test' }
 ];
 
 const functionality = [
@@ -352,7 +356,9 @@ const functionality = [
     { chapter: 9, paragraph: 1, num: 143, desc: 'At work (using Object.create)', code: objInstantiation.factoryObjCreate, params: [5] },
     { chapter: 9, paragraph: 1, num: 144, desc: 'At work (constructor)', code: objInstantiation.constructorAtWork },
 
-    { chapter: 9, paragraph: 2, num: 145, desc: 'Instance class ID', code: instanceClassIdentity }
+    { chapter: 9, paragraph: 2, num: 145, desc: 'Instance class ID', code: instanceClassIdentity },
+
+    { chapter: 99, paragraph: 0, num: 146, desc: 'Test code', code: sTest }
 ];
 
 export { chapters, paragraphs, functionality };
