@@ -21,6 +21,20 @@
 
 import { LEIs } from '../../assets/data/LEIs.js';
 
+//Constructor function for level 1 LEI data
+function level1LEI(objLEI) {
+    this.meta = objLEI.meta;
+    this.data = objLEI.data;
+
+    this.attributes = this.data && this.data.attributes;
+
+    this.entity = this.attributes && this.attributes.entity;
+
+    this.relationships = this.data && this.data.relationships;
+}
+
+const level1LEIs = LEIs.map( elem => new level1LEI(elem) );
+
 //Constructor function to instantiate a Label object
 function Label(desc) {
     this.desc = desc;
@@ -50,6 +64,6 @@ LabelValue.prototype.toString = function() {
 }
 
 export default 
-    LEIs.map( elem => new LabelValue('LEI', elem.data.attributes.lei ) ).join('\n') + '\n\n' +
-    LEIs.map( elem => new LabelValue('Name', elem.data.attributes.entity.legalName.name ) ).join('\n') + '\n\n' +
-    LEIs.map( elem => new LabelValue('Name', elem.data.attributes.entity.legalName.name ).value ).join('\n');
+    level1LEIs.map( elem => new LabelValue('LEI', elem.attributes.lei ) ).join('\n') + '\n\n' +
+    level1LEIs.map( elem => new LabelValue('Name', elem.entity.legalName.name ) ).join('\n') + '\n\n' +
+    level1LEIs.map( elem => new LabelValue('Registration number', elem.entity?.registeredAs ) ).join('\n');
