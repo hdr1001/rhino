@@ -22,6 +22,9 @@
 //The class attribute
 const classAttr = obj => Object.prototype.toString.call(obj).slice(8, -1);
 
+const nullUndefToEmptyStr = elem => elem == null ? '' : elem;
+
 export {
-    classAttr
+    classAttr,
+    nullUndefToEmptyStr
 };

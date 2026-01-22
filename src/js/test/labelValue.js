@@ -20,9 +20,11 @@
 // ***************************************************************** */
 
 import { LEIs } from '../../assets/data/LEIs.js';
+import { nullUndefToEmptyStr } from '../utils.js';
 
 //Constructor function for level 1 LEI data
 function level1LEI(objLEI) {
+    //Data shortcuts
     this.meta = objLEI.meta;
     this.data = objLEI.data;
 
@@ -31,6 +33,28 @@ function level1LEI(objLEI) {
     this.entity = this.attributes && this.attributes.entity;
 
     this.relationships = this.data && this.data.relationships;
+
+    //Object functionality
+    if(this.entity?.otherNames) {
+        const otherNames = this.entity.otherNames
+        otherNames.toString = () => otherNames.map(elem => elem.name).join(', ')
+    }
+
+    //Data points
+    this.attribs = [
+        new LabelValue( 'LEI', this.attributes?.lei ),
+        new LabelValue( 'Name', this.entity?.legalName?.name ),
+        new LabelValue( 'Registration number', this.entity?.registeredAs ),
+        new LabelValue( 'Subcategory', this.entity?.subCategory ),
+        new LabelValue( 'Other names', this.entity?.otherNames ),
+    ];
+}
+
+level1LEI.prototype.toString = function() {
+    return this.attribs
+        .map( elem => String(elem) )
+        .filter( elem => elem !== '' )
+        .join('\n');
 }
 
 const level1LEIs = LEIs.map( elem => new level1LEI(elem) );
@@ -50,7 +74,7 @@ function Value(value) {
 }
 
 Value.prototype.toString = function() {
-    return this.value;
+    return String(nullUndefToEmptyStr(this.value));
 }
 
 //Constructor function to instantiate a LabelValue object
@@ -60,10 +84,10 @@ function LabelValue(label, value) {
 }
 
 LabelValue.prototype.toString = function() {
-    return `${this.label}: ${this.value}`;
+    return String(this.value) ? `${this.label}: ${this.value}` : '';
 }
 
-export default 
-    level1LEIs.map( elem => new LabelValue('LEI', elem.attributes.lei ) ).join('\n') + '\n\n' +
-    level1LEIs.map( elem => new LabelValue('Name', elem.entity.legalName.name ) ).join('\n') + '\n\n' +
-    level1LEIs.map( elem => new LabelValue('Registration number', elem.entity?.registeredAs ) ).join('\n');
+export default
+    level1LEIs
+        .map( elem => String(elem) )
+        .join('\n\n');
