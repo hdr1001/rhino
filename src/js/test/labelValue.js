@@ -20,34 +20,75 @@
 // ***************************************************************** */
 
 import { LEIs } from '../../assets/data/LEIs.js';
+import globals from '../globals.js'
 import { nullUndefToEmptyStr } from '../utils.js';
+
+function leiAddrToStr() {
+    const arrLegalAddr = [];
+
+    if(Array.isArray(this.addressLines) && this.addressLines.length) {
+        arrLegalAddr.push(this.addressLines.join(globals.joinSep))
+    }
+
+    if(this.postalCode) arrLegalAddr.push(this.postalCode);
+
+    if(this.city) arrLegalAddr.push(this.city);
+
+    if(this.region) arrLegalAddr.push(this.region);
+
+    if(this.country) arrLegalAddr.push(this.country);
+
+    return arrLegalAddr.join(globals.joinSep);
+}
+
+function leiAddrSameAs(otherAddr) {
+    return Array.isArray(this.addressLines) && Array.isArray(otherAddr.addressLines) &&
+        this.addressLines.length && otherAddr.addressLines.length &&
+        this.addressLines[0] === otherAddr.addressLines[0]
+}
 
 //Constructor function for level 1 LEI data
 function level1LEI(objLEI) {
     //Data shortcuts
-    this.meta = objLEI.meta;
-    this.data = objLEI.data;
+    ({ meta: this.meta, data: this.data } = objLEI);
 
-    this.attributes = this.data && this.data.attributes;
+    if(this.data) ({ attributes: this.attributes, relationships: this.relationships } = this.data);
 
-    this.entity = this.attributes && this.attributes.entity;
-
-    this.relationships = this.data && this.data.relationships;
+    if(this.attributes) ({ entity: this.entity } = this.attributes);
 
     //Object functionality
     if(this.entity?.otherNames) {
-        const otherNames = this.entity.otherNames
-        otherNames.toString = () => otherNames.map(elem => elem.name).join(', ')
+        const otherNames = this.entity.otherNames;
+
+        otherNames.toString = () => otherNames.map(elem => elem.name).join(globals.joinSep);
+    }
+
+    if(this.entity?.legalAddress) {
+        const legalAddr = this.entity.legalAddress;
+
+        legalAddr.toString = leiAddrToStr;
+        legalAddr.leiAddrSameAs = leiAddrSameAs;
+    }
+
+    if(this.entity?.headquartersAddress) {
+        const hqAddr = this.entity.headquartersAddress;
+
+        hqAddr.toString = leiAddrToStr;
+        hqAddr.leiAddrSameAs = leiAddrSameAs;
     }
 
     //Data points
     this.attribs = [
         new LabelValue( 'LEI', this.attributes?.lei ),
         new LabelValue( 'Name', this.entity?.legalName?.name ),
+        new LabelValue( 'Legal address', this.entity?.legalAddress),
+        this.entity?.legalAddress && this.entity.legalAddress.leiAddrSameAs(this.entity?.headquartersAddress)
+            ? null
+            : new LabelValue( 'HQ address', this.entity?.headquartersAddress),
         new LabelValue( 'Registration number', this.entity?.registeredAs ),
         new LabelValue( 'Subcategory', this.entity?.subCategory ),
         new LabelValue( 'Other names', this.entity?.otherNames ),
-    ];
+    ].filter(elem => elem !== null);
 }
 
 level1LEI.prototype.toString = function() {

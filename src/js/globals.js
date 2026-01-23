@@ -36,7 +36,10 @@ var arrTypes = [ //Array with different types of elements
     new Die() //Instance of the Die constructor function
 ];
 
+const joinSep = ', ';
+
 export default {
     example,
-    arrTypes
+    arrTypes,
+    joinSep
 };
