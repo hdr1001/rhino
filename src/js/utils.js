@@ -22,9 +22,18 @@
 //The class attribute
 const classAttr = obj => Object.prototype.toString.call(obj).slice(8, -1);
 
+//Convert null or undefined to an empty string
 const nullUndefToEmptyStr = elem => elem == null ? '' : elem;
+
+//ISO 8601 UTC Z date/time string to YYYYMMDD or YYMMDD
+function sDateIsoToYYYYMMDD (sDateIso, length = 8) {
+    return typeof sDateIso === 'string'
+        ? sDateIso.split('T')[0].replace(/-/g,'').slice(length * -1)
+        : '';
+}
 
 export {
     classAttr,
-    nullUndefToEmptyStr
+    nullUndefToEmptyStr,
+    sDateIsoToYYYYMMDD
 };

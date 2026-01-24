@@ -20,8 +20,9 @@
 // ***************************************************************** */
 
 import { LEIs } from '../../assets/data/LEIs.js';
+import { entLegalForms } from '../../assets/codes/entityLegalForms.js';
 import globals from '../globals.js'
-import { nullUndefToEmptyStr } from '../utils.js';
+import { nullUndefToEmptyStr, sDateIsoToYYYYMMDD } from '../utils.js';
 
 function leiAddrToStr() {
     const arrLegalAddr = [];
@@ -81,13 +82,15 @@ function level1LEI(objLEI) {
     this.attribs = [
         new LabelValue( 'LEI', this.attributes?.lei ),
         new LabelValue( 'Name', this.entity?.legalName?.name ),
+        new LabelValue( 'Other names', this.entity?.otherNames ),
         new LabelValue( 'Legal address', this.entity?.legalAddress),
         this.entity?.legalAddress && this.entity.legalAddress.leiAddrSameAs(this.entity?.headquartersAddress)
             ? null
             : new LabelValue( 'HQ address', this.entity?.headquartersAddress),
         new LabelValue( 'Registration number', this.entity?.registeredAs ),
-        new LabelValue( 'Subcategory', this.entity?.subCategory ),
-        new LabelValue( 'Other names', this.entity?.otherNames ),
+        new LabelValue( 'Legal form', entLegalForms.get(this.entity?.legalForm?.id)?.desc || this.entity?.legalForm?.id ),
+        new LabelValue( 'Status', this.entity?.status ),
+        new LabelValue( 'Published on', sDateIsoToYYYYMMDD(this.meta?.goldenCopy?.publishDate))
     ].filter(elem => elem !== null);
 }
 
