@@ -3819,13 +3819,3 @@ export const entLegalForms = new Map([
    [ 'TA9Z', { desc: 'Domestic Limited Liability Partnership', country: 'VI' } ],
    [ 'UZ9W', { desc: 'Foreign Profit Corporation', country: 'VI' } ]
 ]);
-/*
-export default function(key) {
-    try {
-        return entLegalForms.get(key).desc;
-    }
-    catch {
-        return '';
-    }
-}
-*/

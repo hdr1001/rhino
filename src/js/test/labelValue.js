@@ -21,6 +21,7 @@
 
 import { LEIs } from '../../assets/data/LEIs.js';
 import { entLegalForms } from '../../assets/codes/entityLegalForms.js';
+import { entRegistrationAuths as entRegAuth } from '../../assets/codes/entityRegAuths.js';
 import globals from '../globals.js'
 import { nullUndefToEmptyStr, sDateIsoToYYYYMMDD } from '../utils.js';
 
@@ -87,8 +88,9 @@ function level1LEI(objLEI) {
         this.entity?.legalAddress && this.entity.legalAddress.leiAddrSameAs(this.entity?.headquartersAddress)
             ? null
             : new LabelValue( 'HQ address', this.entity?.headquartersAddress),
-        new LabelValue( 'Registration number', this.entity?.registeredAs ),
         new LabelValue( 'Legal form', entLegalForms.get(this.entity?.legalForm?.id)?.desc || this.entity?.legalForm?.id ),
+        new LabelValue( 'Registration number', this.entity?.registeredAs ),
+        new LabelValue( 'Registered at', entRegAuth.get(this.entity?.registeredAt?.id)?.desc || this.entity?.registeredAt?.id ),
         new LabelValue( 'Status', this.entity?.status ),
         new LabelValue( 'Published on', sDateIsoToYYYYMMDD(this.meta?.goldenCopy?.publishDate))
     ].filter(elem => elem !== null);
