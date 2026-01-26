@@ -26,21 +26,24 @@ import globals from '../globals.js'
 import { nullUndefToEmptyStr, sDateIsoToYYYYMMDD } from '../utils.js';
 
 function leiAddrToStr() {
-    const arrLegalAddr = [];
+    let arrLegalAddr;
 
     if(Array.isArray(this.addressLines) && this.addressLines.length) {
-        arrLegalAddr.push(this.addressLines.join(globals.joinSep))
+        arrLegalAddr = Array.from(this.addressLines)
+    }
+    else {
+        arrLegalAddr = [];
     }
 
-    if(this.postalCode) arrLegalAddr.push(this.postalCode);
+    arrLegalAddr.push(this.postalCode);
 
-    if(this.city) arrLegalAddr.push(this.city);
+    arrLegalAddr.push(this.city);
 
-    if(this.region) arrLegalAddr.push(this.region);
+    arrLegalAddr.push(this.region);
 
-    if(this.country) arrLegalAddr.push(this.country);
+    arrLegalAddr.push(this.country);
 
-    return arrLegalAddr.join(globals.joinSep);
+    return arrLegalAddr.filter(elem => elem != null).join(globals.joinSep);
 }
 
 function leiAddrSameAs(otherAddr) {
@@ -78,26 +81,30 @@ function level1LEI(objLEI) {
         hqAddr.toString = leiAddrToStr;
         hqAddr.leiAddrSameAs = leiAddrSameAs;
     }
-
-    //Data points
-    this.attribs = [
-        new LabelValue( 'LEI', this.attributes?.lei ),
-        new LabelValue( 'Name', this.entity?.legalName?.name ),
-        new LabelValue( 'Other names', this.entity?.otherNames ),
-        new LabelValue( 'Legal address', this.entity?.legalAddress),
-        this.entity?.legalAddress && this.entity.legalAddress.leiAddrSameAs(this.entity?.headquartersAddress)
-            ? null
-            : new LabelValue( 'HQ address', this.entity?.headquartersAddress),
-        new LabelValue( 'Legal form', entLegalForms.get(this.entity?.legalForm?.id)?.desc || this.entity?.legalForm?.id ),
-        new LabelValue( 'Registration number', this.entity?.registeredAs ),
-        new LabelValue( 'Registered at', entRegAuth.get(this.entity?.registeredAt?.id)?.desc || this.entity?.registeredAt?.id ),
-        new LabelValue( 'Status', this.entity?.status ),
-        new LabelValue( 'Published on', sDateIsoToYYYYMMDD(this.meta?.goldenCopy?.publishDate))
-    ].filter(elem => elem !== null);
 }
 
+//A template for producing a record consisting of label/value pairs
+Object.defineProperty(level1LEI.prototype, 'toLabelValueRec', {
+    get: function() {
+        return [
+            new LabelValue( 'LEI', this.attributes?.lei ),
+            new LabelValue( 'Name', this.entity?.legalName?.name ),
+            new LabelValue( 'Other names', this.entity?.otherNames ),
+            new LabelValue( 'Legal address', this.entity?.legalAddress),
+            this.entity?.legalAddress && this.entity.legalAddress.leiAddrSameAs(this.entity?.headquartersAddress)
+                ? null
+                : new LabelValue( 'HQ address', this.entity?.headquartersAddress),
+            new LabelValue( 'Legal form', entLegalForms.get(this.entity?.legalForm?.id)?.desc || this.entity?.legalForm?.id ),
+            new LabelValue( 'Registration number', this.entity?.registeredAs ),
+            new LabelValue( 'Registered at', entRegAuth.get(this.entity?.registeredAt?.id)?.desc || this.entity?.registeredAt?.id ),
+            new LabelValue( 'Status', this.entity?.status ),
+            new LabelValue( 'Published on', sDateIsoToYYYYMMDD(this.meta?.goldenCopy?.publishDate))
+        ].filter(elem => elem !== null);
+    }
+});
+
 level1LEI.prototype.toString = function() {
-    return this.attribs
+    return this.toLabelValueRec
         .map( elem => String(elem) )
         .filter( elem => elem !== '' )
         .join('\n');
