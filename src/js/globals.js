@@ -38,8 +38,11 @@ var arrTypes = [ //Array with different types of elements
 
 const joinSep = ', ';
 
+const delimSep = '|';
+
 export default {
     example,
     arrTypes,
-    joinSep
+    joinSep,
+    delimSep
 };

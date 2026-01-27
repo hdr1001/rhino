@@ -103,11 +103,30 @@ Object.defineProperty(level1LEI.prototype, 'toLabelValueRec', {
     }
 });
 
+//A template for producing a delimited string
+Object.defineProperty(level1LEI.prototype, 'toDelimStrRec', {
+    get: function() {
+        return [
+            this.attributes?.lei,
+            entLegalForms.get(this.entity?.legalForm?.id)?.desc || this.entity?.legalForm?.id,
+            this.entity?.registeredAs,
+            entRegAuth.get(this.entity?.registeredAt?.id)?.desc || this.entity?.registeredAt?.id,
+            this.entity?.status,
+            sDateIsoToYYYYMMDD(this.meta?.goldenCopy?.publishDate)
+        ]
+    }
+});
+
 level1LEI.prototype.toString = function() {
     return this.toLabelValueRec
         .map( elem => String(elem) )
         .filter( elem => elem !== '' )
         .join('\n');
+}
+
+level1LEI.prototype.toDelimStr = function() {
+    return this.toDelimStrRec
+        .reduce((accu, elem) => accu + elem + globals.delimSep, '')
 }
 
 const level1LEIs = LEIs.map( elem => new level1LEI(elem) );
@@ -142,5 +161,7 @@ LabelValue.prototype.toString = function() {
 
 export default
     level1LEIs
-        .map( elem => String(elem) )
-        .join('\n\n');
+//        .map( elem => String(elem) )
+//        .join('\n\n');
+        .map( elem => elem.toDelimStr().slice(0, -1) )
+        .join('\n');
