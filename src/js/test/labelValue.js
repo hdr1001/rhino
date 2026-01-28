@@ -103,10 +103,34 @@ Object.defineProperty(level1LEI.prototype, 'toLabelValueRec', {
     }
 });
 
+//Combine different name values for delimited output
+level1LEI.prototype.delimNames = function(idx = 0) {
+    //Give the legal name the highest priority
+    if(idx === 0) return this.entity?.legalName?.name;
+
+    //... followed by other names
+    let numOtherNames = this.entity?.otherNames?.length;
+
+    if(numOtherNames && idx <= numOtherNames) return this.entity.otherNames[idx - 1].name;
+
+    if(typeof numOtherNames !== 'number') numOtherNames = 0;
+
+    const numTransliteratedOtherNames = this.entity?.transliteratedOtherNames?.length;
+
+    //... followed by transliterated names
+    if(numTransliteratedOtherNames && idx <= numOtherNames + numTransliteratedOtherNames) {
+        return this.entity.transliteratedOtherNames[idx - 1 - numOtherNames].name
+    }
+
+    return '';
+}
+
 //A template for producing a delimited string
 Object.defineProperty(level1LEI.prototype, 'toDelimStrRec', {
     get: function() {
         return [
+            this.delimNames(0),
+            this.delimNames(1),
             this.attributes?.lei,
             entLegalForms.get(this.entity?.legalForm?.id)?.desc || this.entity?.legalForm?.id,
             this.entity?.registeredAs,
