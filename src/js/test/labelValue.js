@@ -115,9 +115,9 @@ level1LEI.prototype.delimNames = function(idx = 0) {
 
     if(typeof numOtherNames !== 'number') numOtherNames = 0;
 
+    //... followed by transliterated names
     const numTransliteratedOtherNames = this.entity?.transliteratedOtherNames?.length;
 
-    //... followed by transliterated names
     if(numTransliteratedOtherNames && idx <= numOtherNames + numTransliteratedOtherNames) {
         return this.entity.transliteratedOtherNames[idx - 1 - numOtherNames].name
     }
@@ -125,19 +125,49 @@ level1LEI.prototype.delimNames = function(idx = 0) {
     return '';
 }
 
+//Compose an address for delimited output
+level1LEI.prototype.delimAddr = function(addr, addrAttribs) {
+    const arrAddr = [];
+    
+    addrAttribs.forEach(attrib => {
+        if(attrib.num) {
+            for(let i = 0; i < attrib.num; i++) {
+                arrAddr.push(addr[attrib.prop][i])
+            }
+        }
+        else {
+            arrAddr.push(addr[attrib.prop])
+        }
+    });
+
+    return arrAddr;
+}
+
 //A template for producing a delimited string
 Object.defineProperty(level1LEI.prototype, 'toDelimStrRec', {
     get: function() {
-        return [
-            this.delimNames(0),
-            this.delimNames(1),
-            this.attributes?.lei,
-            entLegalForms.get(this.entity?.legalForm?.id)?.desc || this.entity?.legalForm?.id,
-            this.entity?.registeredAs,
-            entRegAuth.get(this.entity?.registeredAt?.id)?.desc || this.entity?.registeredAt?.id,
-            this.entity?.status,
-            sDateIsoToYYYYMMDD(this.meta?.goldenCopy?.publishDate)
-        ]
+        let arrRet = [];
+
+        arrRet.push( this.delimNames(0) );
+        arrRet.push( this.delimNames(1) );
+        arrRet = arrRet.concat( this.delimAddr(
+            this.entity?.legalAddress,
+            [
+                { prop: 'addressLines', num: 2},
+                { prop: 'postalCode' },
+                { prop: 'city' },
+                { prop: 'region' },
+                { prop: 'country' },
+            ]
+        ) );
+        arrRet.push( this.attributes?.lei );
+        arrRet.push( entLegalForms.get(this.entity?.legalForm?.id)?.desc || this.entity?.legalForm?.id );
+        arrRet.push( this.entity?.registeredAs );
+        arrRet.push( entRegAuth.get(this.entity?.registeredAt?.id)?.desc || this.entity?.registeredAt?.id );
+        arrRet.push( this.entity?.status );
+        arrRet.push( sDateIsoToYYYYMMDD(this.meta?.goldenCopy?.publishDate) );
+
+        return arrRet.map(elem => nullUndefToEmptyStr(elem));
     }
 });
 
