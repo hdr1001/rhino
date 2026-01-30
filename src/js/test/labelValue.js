@@ -127,20 +127,28 @@ level1LEI.prototype.delimNames = function(idx = 0) {
 
 //Compose an address for delimited output
 level1LEI.prototype.delimAddr = function(addr, addrAttribs) {
-    const arrAddr = [];
-    
-    addrAttribs.forEach(attrib => {
-        if(attrib.num) {
-            for(let i = 0; i < attrib.num; i++) {
-                arrAddr.push(addr[attrib.prop][i])
-            }
-        }
-        else {
-            arrAddr.push(addr[attrib.prop])
-        }
-    });
+    //Handle the edge case that no address data is available
+    if(!addr) {
+        const len = addrAttribs.reduce((accu, attrib) => accu + (attrib.num ? attrib.num : 1), 0);
 
-    return arrAddr;
+        return Array.from({ length: len }, () => undefined);
+    }
+
+    //Convert the address object attributes to an array
+    return addrAttribs.reduce((accu, attrib) => {
+            if(attrib.num) {
+                for(let i = 0; i < attrib.num; i++) {
+                    accu.push(addr[attrib.prop]?.[i])
+                }
+            }
+            else {
+                accu.push(addr[attrib.prop])
+            }
+
+            return accu;
+        },
+        []
+    );
 }
 
 //A template for producing a delimited string
