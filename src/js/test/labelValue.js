@@ -126,9 +126,9 @@ level1LEI.prototype.delimNames = function(idx = 0) {
 }
 
 //Compose an address for delimited output
-level1LEI.prototype.delimAddr = function(addr, addrAttribs) {
+level1LEI.prototype.delimAddr = function(addr, addrAttribs, header) {
     //Handle the edge case that no address data is available
-    if(!addr) {
+    if(!addr && !header) {
         const len = addrAttribs.reduce((accu, attrib) => accu + (attrib.num ? attrib.num : 1), 0);
 
         return Array.from({ length: len }, () => undefined);
@@ -138,11 +138,11 @@ level1LEI.prototype.delimAddr = function(addr, addrAttribs) {
     return addrAttribs.reduce((accu, attrib) => {
             if(attrib.num) {
                 for(let i = 0; i < attrib.num; i++) {
-                    accu.push(addr[attrib.prop]?.[i])
+                    accu.push(header ? attrib.header + '_' + String(i + 1).padStart(2, '0') : addr[attrib.prop]?.[i])
                 }
             }
             else {
-                accu.push(addr[attrib.prop])
+                accu.push(header ? attrib.header : addr[attrib.prop])
             }
 
             return accu;
@@ -152,32 +152,31 @@ level1LEI.prototype.delimAddr = function(addr, addrAttribs) {
 }
 
 //A template for producing a delimited string
-Object.defineProperty(level1LEI.prototype, 'toDelimStrRec', {
-    get: function() {
+level1LEI.prototype.toDelimStrRec = function(header) {
         let arrRet = [];
 
-        arrRet.push( this.delimNames(0) );
-        arrRet.push( this.delimNames(1) );
+        arrRet.push( header ? 'name_01' : this.delimNames(0) );
+        arrRet.push( header ? 'name_02' : this.delimNames(1) );
         arrRet = arrRet.concat( this.delimAddr(
             this.entity?.legalAddress,
             [
-                { prop: 'addressLines', num: 2},
-                { prop: 'postalCode' },
-                { prop: 'city' },
-                { prop: 'region' },
-                { prop: 'country' },
-            ]
+                { prop: 'addressLines', header: 'addr_line', num: 2},
+                { prop: 'postalCode', header: 'addr_post_cd' },
+                { prop: 'city', header: 'addr_city' },
+                { prop: 'region', header: 'addr_region' },
+                { prop: 'country', header: 'addr_ctry' },
+            ],
+            header
         ) );
-        arrRet.push( this.attributes?.lei );
-        arrRet.push( entLegalForms.get(this.entity?.legalForm?.id)?.desc || this.entity?.legalForm?.id );
-        arrRet.push( this.entity?.registeredAs );
-        arrRet.push( entRegAuth.get(this.entity?.registeredAt?.id)?.desc || this.entity?.registeredAt?.id );
-        arrRet.push( this.entity?.status );
-        arrRet.push( sDateIsoToYYYYMMDD(this.meta?.goldenCopy?.publishDate) );
+        arrRet.push( header ? 'lei' : this.attributes?.lei );
+        arrRet.push( header ? 'lgl_form' : entLegalForms.get(this.entity?.legalForm?.id)?.desc || this.entity?.legalForm?.id );
+        arrRet.push( header ? 'reg_as' : this.entity?.registeredAs );
+        arrRet.push( header ? 'reg_at' : entRegAuth.get(this.entity?.registeredAt?.id)?.desc || this.entity?.registeredAt?.id );
+        arrRet.push( header ? 'status' : this.entity?.status );
+        arrRet.push( header ? 'publish_dt' : sDateIsoToYYYYMMDD(this.meta?.goldenCopy?.publishDate) );
 
         return arrRet.map(elem => nullUndefToEmptyStr(elem));
-    }
-});
+};
 
 level1LEI.prototype.toString = function() {
     return this.toLabelValueRec
@@ -187,8 +186,8 @@ level1LEI.prototype.toString = function() {
 }
 
 level1LEI.prototype.toDelimStr = function() {
-    return this.toDelimStrRec
-        .reduce((accu, elem) => accu + elem + globals.delimSep, '')
+    return this.toDelimStrRec(true).reduce((accu, elem) => accu + elem + globals.delimSep, '')
+//        this.toDelimStrRec().reduce((accu, elem) => accu + elem + globals.delimSep, '');
 }
 
 const level1LEIs = LEIs.map( elem => new level1LEI(elem) );
@@ -222,6 +221,7 @@ LabelValue.prototype.toString = function() {
 }
 
 export default
+    level1LEIs[0].toDelimStrRec(true).join(globals.delimSep) + '\n' +
     level1LEIs
 //        .map( elem => String(elem) )
 //        .join('\n\n');
