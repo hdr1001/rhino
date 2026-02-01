@@ -160,7 +160,7 @@ level1LEI.prototype.toDelimStrRec = function(header) {
         arrRet = arrRet.concat( this.delimAddr(
             this.entity?.legalAddress,
             [
-                { prop: 'addressLines', header: 'addr_line', num: 2},
+                { prop: 'addressLines', header: 'addr_line', num: 3},
                 { prop: 'postalCode', header: 'addr_post_cd' },
                 { prop: 'city', header: 'addr_city' },
                 { prop: 'region', header: 'addr_region' },
@@ -185,10 +185,18 @@ level1LEI.prototype.toString = function() {
         .join('\n');
 }
 
-level1LEI.prototype.toDelimStr = function() {
-    return this.toDelimStrRec(true).reduce((accu, elem) => accu + elem + globals.delimSep, '')
-//        this.toDelimStrRec().reduce((accu, elem) => accu + elem + globals.delimSep, '');
-}
+Object.defineProperties(level1LEI.prototype, {
+    'toDelimStrHeader': {
+        get: function() {
+            return this.toDelimStrRec(true).join(globals.delimSep);
+        }
+    },
+    'toDelimStrRecord': {
+        get: function() {
+            return this.toDelimStrRec().join(globals.delimSep);
+        }
+    }
+});
 
 const level1LEIs = LEIs.map( elem => new level1LEI(elem) );
 
@@ -220,10 +228,13 @@ LabelValue.prototype.toString = function() {
     return String(this.value) ? `${this.label}: ${this.value}` : '';
 }
 
+const showRecs = false;
+
 export default
-    level1LEIs[0].toDelimStrRec(true).join(globals.delimSep) + '\n' +
-    level1LEIs
-//        .map( elem => String(elem) )
-//        .join('\n\n');
-        .map( elem => elem.toDelimStr().slice(0, -1) )
-        .join('\n');
+    showRecs ?
+        level1LEIs
+            .map( elem => String(elem) )
+            .join('\n\n')
+        :
+            level1LEIs[0].toDelimStrHeader + '\n' +
+            level1LEIs.map(elem => elem.toDelimStrRecord).join('\n');
