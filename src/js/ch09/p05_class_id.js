@@ -20,6 +20,7 @@
 // ***************************************************************** */
 
 import { classAttr } from '../utils.js';
+import { Die } from '../die.js';
 
 //Function typeof_v2(), full credit to David Flanagan
 /*
@@ -55,6 +56,41 @@ function typeof_v2(o) {
     return 'object';
 }
 
+function sTypeof_v2() {
+    var undef;
+    var nu11 = null;
+    var bool = 1 === 1;
+    var num = 42;
+    var str = 'foo';
+
+    //NaN (a property of the global object)
+    var nan = 'three' / 3; //NaN is of type Number
+
+    return `
+        primitive types 
+        the type of undefined is ${typeof_v2( undef )}
+        the type of null is ${typeof_v2( nu11 )}
+
+        the type of literal true is ${typeof_v2( bool )}
+        the type of literal 42 is ${typeof_v2( num )}
+        the type of literal \'foo\' is ${typeof_v2( str )}
+
+        NaN, a property of the global object
+        the type of NaN is ${typeof_v2( nan )}
+
+        object types
+        the type of literal { foo: 'bar' } is ${typeof_v2( { foo: 'bar' } )}
+        the type of literal [ 9, 'ten' ] is ${typeof_v2( [ 9, 'ten' ] )}
+        the type of function f() { return true } is ${typeof_v2( function f() { return true } )}
+
+        the type of new Date() is ${typeof_v2( new Date() )}
+        the type of literal /foo/i is ${typeof_v2( /foo/i )}
+        the type of new Error('❌') is ${typeof_v2( new Error('❌') )}
+        the type of new Die is ${typeof_v2( new Die )}
+
+    `;
+}
+
 //Method getName of a Function object, full credit to David Flanagan
 //Return the name of a function (may be "") or null for nonfunctions
 if(!Function.prototype.getName){
@@ -65,4 +101,4 @@ if(!Function.prototype.getName){
     };
 }
 
-export default typeof_v2;
+export default sTypeof_v2;

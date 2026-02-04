@@ -19,8 +19,6 @@
 //
 // ***************************************************************** */
 
-import { Die } from './die.js';
-
 import esc_seq from './ch02/p01_esc_seq.js';
 import validID from './ch02/p04_identifiers.js';
 import semicolons from './ch02/p05_semicolons.js';
@@ -77,7 +75,7 @@ import fProps from './ch08/p07_f_props.js';
 import fThis from './ch08/p99_f_this.js';
 import objInstantiation from './ch09/p01_factory.js';
 import { instanceClassIdentity } from './ch09/p02_class_id.js';
-import typeof_v2 from './ch09/p05_class_id.js';
+import sTypeof_v2 from './ch09/p05_class_id.js';
 import sTest from './test/labelValue.js';
 
 const chapters = [
@@ -362,18 +360,9 @@ const functionality = [
 
     { chapter: 9, paragraph: 2, num: 145, desc: 'Instance class ID', code: instanceClassIdentity },
 
-    { chapter: 9, paragraph: 5, num: 146, desc: 'null', code: typeof_v2, params: [ null ] },
-    { chapter: 9, paragraph: 5, num: 147, desc: 'NaN', code: typeof_v2, params: [ 'three' / 1 ] },
-    { chapter: 9, paragraph: 5, num: 148, desc: 'undefined', code: typeof_v2, params: [ undefined ] },
-    { chapter: 9, paragraph: 5, num: 149, desc: 'number', code: typeof_v2, params: [ 1 ] },
-    { chapter: 9, paragraph: 5, num: 150, desc: 'string', code: typeof_v2, params: [ 'foo' ] },
-    { chapter: 9, paragraph: 5, num: 151, desc: 'boolean', code: typeof_v2, params: [ true ] },
-    { chapter: 9, paragraph: 5, num: 152, desc: 'array', code: typeof_v2, params: [ [] ] },
-    { chapter: 9, paragraph: 5, num: 153, desc: 'object', code: typeof_v2, params: [ {} ] },
-    { chapter: 9, paragraph: 5, num: 154, desc: 'function', code: typeof_v2, params: [ function() {} ] },
-    { chapter: 9, paragraph: 5, num: 155, desc: 'new Die', code: typeof_v2, params: [ new Die ] },
+    { chapter: 9, paragraph: 5, num: 146, desc: 'typeof_v2', code: sTypeof_v2 },
 
-    { chapter: 99, paragraph: 0, num: 156, desc: 'Test code', code: sTest }
+    { chapter: 99, paragraph: 0, num: 147, desc: 'Test code', code: sTest }
 ];
 
 export { chapters, paragraphs, functionality };

@@ -20,6 +20,7 @@
 // ***************************************************************** */
 
 import globals from '../globals.js';
+import { Die } from '../die.js';
 
 var moduleLevelVar = 1.1301;
 
@@ -40,15 +41,30 @@ function globalModuleLevelVars() {
 }
 
 //JavaScript variable types
+//ES6: https://262.ecma-international.org/6.0/#sec-typeof-operator
+//EcmaScript 2020 defines 7 primitive types:
+//Undefined, Null, Boolean, Number, String, Symbol and BigInt
 function jsTypes() {
+    var undef;
+    var nu11 = null;
+    var bool = 1 === 1;
+    var num = 42;
+    var str = 'foo';
+
+    //NaN (a property of the global object)
+    var nan = 'three' / 3; //NaN is of type Number
+
     return `
         primitive types 
-        the type of literal 42 is ${typeof 42}
-        the type of literal \'foo\' is ${typeof 'foo'}
-        the type of literal true is ${typeof true}
+        the type of undefined is ${typeof undef}
+        the type of null is ${typeof nu11}
 
-        the type of null is ${typeof null}
-        the type of undefined is ${typeof undefined}
+        the type of literal true is ${typeof bool}
+        the type of literal 42 is ${typeof num}
+        the type of literal \'foo\' is ${typeof str}
+
+        NaN, a property of the global object
+        the type of NaN is ${typeof nan}
 
         object types
         the type of literal { foo: 'bar' } is ${typeof { foo: 'bar' }}
@@ -58,6 +74,7 @@ function jsTypes() {
         the type of new Date() is ${typeof new Date()}
         the type of literal /foo/i is ${typeof /foo/i}
         the type of new Error('❌') is ${typeof new Error('❌')}
+        the type of new Die is ${typeof new Die}
 
     `;
 }
