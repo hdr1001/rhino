@@ -44,6 +44,12 @@ function globalModuleLevelVars() {
 //ES6: https://262.ecma-international.org/6.0/#sec-typeof-operator
 //EcmaScript 2020 defines 7 primitive types:
 //Undefined, Null, Boolean, Number, String, Symbol and BigInt
+//- typeof evaluates null to object even though it is a primitive value
+//- NaN is considered to be of type Number, even though it is not a number
+//- The typeof operator returns "function" for functions, but, technically,
+//  they are still of type Object.
+//- All other values are of type Object, including instances of Date, 
+//  Array, etc.
 function jsTypes() {
     var undef;
     var nu11 = null;
@@ -66,14 +72,19 @@ function jsTypes() {
         NaN, a property of the global object
         the type of NaN is ${typeof nan}
 
-        object types
-        the type of literal { foo: 'bar' } is ${typeof { foo: 'bar' }}
-        the type of literal [ 9, 'ten' ] is ${typeof [ 9, 'ten' ]}
+        object types, a function
         the type of function f() { return true } is ${typeof function f() { return true }}
 
+        object literals
+        the type of literal { foo: 'bar' } is ${typeof { foo: 'bar' }}
+        the type of literal [ 9, 'ten' ] is ${typeof [ 9, 'ten' ]}
+
+        language built-in objects
         the type of new Date() is ${typeof new Date()}
         the type of literal /foo/i is ${typeof /foo/i}
         the type of new Error('❌') is ${typeof new Error('❌')}
+
+        user-defined objects
         the type of new Die is ${typeof new Die}
 
     `;
