@@ -228,6 +228,31 @@ LabelValue.prototype.toString = function() {
     return String(this.value) ? `${this.label}: ${this.value}` : '';
 }
 
+LabelValue.prototype.toHTML = function() {
+    const construct_tr = () => {
+        const tr = document.createElement('tr');
+    
+        const tdLabel = document.createElement('td');
+        tdLabel.classList.add('label');
+        tdLabel.textContent = this.label;
+        tr.appendChild(tdLabel);
+
+        const tdValue = document.createElement('td');
+        tdValue.classList.add('value');
+        tdValue.textContent = this.value;
+        tr.appendChild(tdValue);
+
+        return tr;
+    }
+
+    return this.value
+        ? construct_tr().outerHTML
+        : null;
+}
+
+export default new LabelValue('LEI', level1LEIs[0].attributes?.lei).toHTML();
+
+/*
 const showRecs = false;
 
 export default
@@ -238,3 +263,4 @@ export default
         :
             level1LEIs[0].toDelimStrHeader + '\n' +
             level1LEIs.map(elem => elem.toDelimStrRecord).join('\n');
+*/
