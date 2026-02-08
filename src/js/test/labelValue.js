@@ -57,9 +57,9 @@ function level1LEI(objLEI) {
     //Data shortcuts
     ({ meta: this.meta, data: this.data } = objLEI);
 
-    if(this.data) ({ attributes: this.attributes, relationships: this.relationships } = this.data);
+    if(this.data) ({ attributes: this.attribs, relationships: this.relationships } = this.data);
 
-    if(this.attributes) ({ entity: this.entity } = this.attributes);
+    if(this.attribs) ({ entity: this.entity } = this.attribs);
 
     //Object functionality
     if(this.entity?.otherNames) {
@@ -87,7 +87,7 @@ function level1LEI(objLEI) {
 Object.defineProperty(level1LEI.prototype, 'toLabelValueRec', {
     get: function() {
         return [
-            new LabelValue( 'LEI', this.attributes?.lei ),
+            new LabelValue( 'LEI', this.attribs?.lei ),
             new LabelValue( 'Name', this.entity?.legalName?.name ),
             new LabelValue( 'Other names', this.entity?.otherNames ),
             new LabelValue( 'Legal address', this.entity?.legalAddress),
@@ -168,7 +168,7 @@ level1LEI.prototype.toDelimStrRec = function(header) {
             ],
             header
         ) );
-        arrRet.push( header ? 'lei' : this.attributes?.lei );
+        arrRet.push( header ? 'lei' : this.attribs?.lei );
         arrRet.push( header ? 'lgl_form' : entLegalForms.get(this.entity?.legalForm?.id)?.desc || this.entity?.legalForm?.id );
         arrRet.push( header ? 'reg_as' : this.entity?.registeredAs );
         arrRet.push( header ? 'reg_at' : entRegAuth.get(this.entity?.registeredAt?.id)?.desc || this.entity?.registeredAt?.id );
@@ -209,6 +209,14 @@ Label.prototype.toString = function() {
     return this.desc;
 }
 
+Label.prototype.domElem = function(tag = 'td') {
+    const elem = document.createElement(tag);
+    elem.classList.add('label');
+    elem.textContent = this.desc;
+
+    return elem;
+}
+
 //Constructor function to instantiate a Value object
 function Value(value) {
     this.value = value;
@@ -216,6 +224,14 @@ function Value(value) {
 
 Value.prototype.toString = function() {
     return String(nullUndefToEmptyStr(this.value));
+}
+
+Value.prototype.domElem = function(tag = 'td') {
+    let elem = document.createElement(tag);
+    elem.classList.add('value');
+    elem.textContent = this.toString();
+
+    return elem;
 }
 
 //Constructor function to instantiate a LabelValue object
@@ -228,32 +244,38 @@ LabelValue.prototype.toString = function() {
     return String(this.value) ? `${this.label}: ${this.value}` : '';
 }
 
-LabelValue.prototype.toHTML = function() {
+LabelValue.prototype.domElem = function() {
     const construct_tr = () => {
         const tr = document.createElement('tr');
-    
-        const tdLabel = document.createElement('td');
-        tdLabel.classList.add('label');
-        tdLabel.textContent = this.label;
-        tr.appendChild(tdLabel);
 
-        const tdValue = document.createElement('td');
-        tdValue.classList.add('value');
-        tdValue.textContent = this.value;
-        tr.appendChild(tdValue);
+        tr.appendChild(this.label.domElem('td'));
+        tr.appendChild(this.value.domElem('td'));
 
         return tr;
     }
 
     return this.value
-        ? construct_tr().outerHTML
+        ? construct_tr()
         : null;
 }
 
-export default new LabelValue('LEI', level1LEIs[0].attributes?.lei).toHTML();
+function Section(recLEI) {
+    this.labelValues = [ 
+        new LabelValue('LEI', recLEI.attribs?.lei),
+        new LabelValue('Name', recLEI.entity?.legalName?.name)
+    ];
+}
 
+Section.prototype.domElem = function() {
+    const table = document.createElement('table');
+    this.labelValues.map(lv => table.appendChild(lv.domElem()));
+
+    return table;
+}
+
+export default new Section(level1LEIs[5]).domElem().outerHTML;
 /*
-const showRecs = false;
+const showRecs = true;
 
 export default
     showRecs ?
