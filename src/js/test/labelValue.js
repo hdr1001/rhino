@@ -259,21 +259,38 @@ LabelValue.prototype.domElem = function() {
         : null;
 }
 
-function Section(recLEI) {
-    this.labelValues = [ 
-        new LabelValue('LEI', recLEI.attribs?.lei),
-        new LabelValue('Name', recLEI.entity?.legalName?.name)
-    ];
+function Section(labelValues) {
+    this.labelValues = labelValues
 }
 
 Section.prototype.domElem = function() {
+    if(!this.labelValues.length) return null;
+
     const table = document.createElement('table');
     this.labelValues.map(lv => table.appendChild(lv.domElem()));
 
     return table;
 }
 
-export default new Section(level1LEIs[5]).domElem().outerHTML;
+function sectionIDs(recLEI) {
+    return [ 
+        new LabelValue('LEI', recLEI.attribs?.lei),
+        recLEI.entity?.registeredAs && new LabelValue('Registration number', recLEI.entity.registeredAs)
+    ].filter(elem => elem != null)
+}
+
+function sectionNames(recLEI) {
+    return [ 
+        recLEI.entity?.legalName?.name && new LabelValue('Name', recLEI.entity.legalName.name),
+        recLEI.entity?.otherNames?.[0]?.name ? new LabelValue('Other names', recLEI.entity.otherNames[0].name) : null
+    ].filter(elem => elem != null)
+}
+
+const idxLEI = 13;
+
+export default
+    new Section(sectionIDs(level1LEIs[idxLEI])).domElem().outerHTML + '\n' + 
+    new Section(sectionNames(level1LEIs[idxLEI])).domElem().outerHTML;
 /*
 const showRecs = true;
 
