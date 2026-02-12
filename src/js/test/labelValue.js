@@ -226,35 +226,75 @@ Value.prototype.toString = function() {
     return String(nullUndefToEmptyStr(this.value));
 }
 
+Value.prototype.isArray = function() {
+    return Array.isArray(this.value);
+}
+
+Value.prototype.numRows = function() {
+    return this.isArray() ? this.value.length : 1;
+}
+
 Value.prototype.domElem = function(tag = 'td') {
     let elem = document.createElement(tag);
     elem.classList.add('value');
-    elem.textContent = this.toString();
+    elem.textContent = this.value.toString();
 
     return elem;
 }
 
+Value.prototype.domElems = function(tag = 'td') {
+    if(!this.isArray()) return [this.domElem(tag)];
+
+    let arrElems = [], elem;
+
+    this.value.forEach( v => {
+        elem = document.createElement(tag);
+        elem.classList.add('value');
+        elem.textContent = String(v);
+
+        arrElems.push(elem);
+    });
+    
+    return arrElems;
+}
+
 //Constructor function to instantiate a LabelValue object
 function LabelValue(label, value) {
-    this.label = new Label(label);
-    this.value = new Value(value);
+    this.lbl = new Label(label);
+    this.val = new Value(value);
 }
 
 LabelValue.prototype.toString = function() {
-    return String(this.value) ? `${this.label}: ${this.value}` : '';
+    return String(this.val) ? `${this.lbl}: ${this.val}` : '';
 }
 
 LabelValue.prototype.domElem = function() {
     const construct_tr = () => {
         const tr = document.createElement('tr');
 
-        tr.appendChild(this.label.domElem('td'));
-        tr.appendChild(this.value.domElem('td'));
+        if(this.val.numRows() > 1) {
+            tr.appendChild(this.lbl.domElem('td')).setAttribute('rowspan', String(this.val.numRows()))
+        }
+
+        let trx = tr;
+
+        this.val.domElems('td').forEach((de, idx) => {
+            if(idx === 0) {
+                if(this.val.numRows() > 1) {
+                    de.setAttribute('rowspan', String(this.val.numRows()))
+                }
+            }
+            else {
+                trx = document.createElement('tr');
+            }
+
+            tr.appendChild(de) ;
+        });
 
         return tr;
     }
 
-    return this.value
+    return this.val
         ? construct_tr()
         : null;
 }
@@ -282,17 +322,17 @@ function sectionIDs(recLEI) {
 function sectionNames(recLEI) {
     return [ 
         recLEI.entity?.legalName?.name && new LabelValue('Name', recLEI.entity.legalName.name),
-        recLEI.entity?.otherNames?.[0]?.name ? new LabelValue('Other names', recLEI.entity.otherNames[0].name) : null
+        recLEI.entity?.otherNames && recLEI.entity.otherNames.length ? new LabelValue('Other name(s)', recLEI.entity.otherNames.map(elem => elem.name)) : null
     ].filter(elem => elem != null)
 }
 
-const idxLEI = 13;
+const idxLEI = 14;
 
 export default
     new Section(sectionIDs(level1LEIs[idxLEI])).domElem().outerHTML + '\n' + 
     new Section(sectionNames(level1LEIs[idxLEI])).domElem().outerHTML;
 /*
-const showRecs = true;
+const showRecs = false;
 
 export default
     showRecs ?
