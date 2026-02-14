@@ -186,12 +186,12 @@ level1LEI.prototype.toString = function() {
 }
 
 Object.defineProperties(level1LEI.prototype, {
-    'toDelimStrHeader': {
+    toDelimStrHeader: {
         get: function() {
             return this.toDelimStrRec(true).join(globals.delimSep);
         }
     },
-    'toDelimStrRecord': {
+    toDelimStrRecord: {
         get: function() {
             return this.toDelimStrRec().join(globals.delimSep);
         }
@@ -243,7 +243,7 @@ Value.prototype.domElem = function(tag = 'td') {
 }
 
 Value.prototype.domElems = function(tag = 'td') {
-    if(!this.isArray()) return [this.domElem(tag)];
+    if(!this.isArray()) return [ this.domElem(tag) ];
 
     let arrElems = [], elem;
 
@@ -264,54 +264,73 @@ function LabelValue(label, value) {
     this.val = new Value(value);
 }
 
-LabelValue.prototype.toString = function() {
-    return String(this.val) ? `${this.lbl}: ${this.val}` : '';
-}
+//Shared label/value pair functionality
+Object.defineProperties(LabelValue.prototype, {
+    toString: {
+        value: function() { return String(this.val) ? `${this.lbl}: ${this.val}` : '' }
+    },
+    domElems: {
+        get: function() {
+            const construct_trs = () => {
+                let tr = document.createElement('tr');
 
-LabelValue.prototype.domElem = function() {
-    const construct_tr = () => {
-        const tr = document.createElement('tr');
+                //Add the label as a table header cell
+                const th = tr.appendChild(this.lbl.domElem('th'));
 
-        if(this.val.numRows() > 1) {
-            tr.appendChild(this.lbl.domElem('td')).setAttribute('rowspan', String(this.val.numRows()))
+                //An array of table row elements to be returned
+                const arr_trs = [];
+
+                //Add the value(s) as table data cell(s)
+                this.val.domElems('td').forEach((de, idx) => {
+                    if(idx === 0) {
+                        //If the value consists of multiple rows, make the label cell span those rows
+                        if(this.val.numRows() > 1) th.setAttribute('rowspan', String(this.val.numRows()))
+                    }
+                    else {
+                        tr = document.createElement('tr');
+                    }
+
+                    //Add a value as a table data cell
+                    tr.appendChild(de);
+
+                    //Return an array of table rows
+                    arr_trs[idx] = tr;
+                });
+
+                return arr_trs;
+            }
+
+            return this.val ? construct_trs() : null;
         }
-
-        let trx = tr;
-
-        this.val.domElems('td').forEach((de, idx) => {
-            if(idx === 0) {
-                if(this.val.numRows() > 1) {
-                    de.setAttribute('rowspan', String(this.val.numRows()))
-                }
-            }
-            else {
-                trx = document.createElement('tr');
-            }
-
-            tr.appendChild(de) ;
-        });
-
-        return tr;
     }
+});
 
-    return this.val
-        ? construct_tr()
-        : null;
-}
-
+//A report section consisting of label/value pairs
 function Section(labelValues) {
     this.labelValues = labelValues
 }
 
-Section.prototype.domElem = function() {
-    if(!this.labelValues.length) return null;
+//Return a DOM element representing the section as a table,
+//or null if the section contains no label/value pairs
+Object.defineProperty(Section.prototype, 'domElem', {
+    get: function() {
+        if(!this.labelValues.length) return null;
 
-    const table = document.createElement('table');
-    this.labelValues.map(lv => table.appendChild(lv.domElem()));
+        //Create the basic elements
+        const table = document.createElement('table');
+        const tbody = table.appendChild(document.createElement('tbody'));
 
-    return table;
-}
+        //Add the label/value pairs as table rows
+        this.labelValues.map(lv => lv.domElems.map(tr => tbody.appendChild(tr)));
 
+        return table;
+    }
+});
+
+//Create a report section for registration numbers
+//Section includes:
+//- LEI code
+//- Registration number (if available)
 function sectionIDs(recLEI) {
     return [ 
         new LabelValue('LEI', recLEI.attribs?.lei),
@@ -319,6 +338,10 @@ function sectionIDs(recLEI) {
     ].filter(elem => elem != null)
 }
 
+//Create a report section for entity names
+//Section includes:
+//- Legal name (if available)
+//- Other names (if available)
 function sectionNames(recLEI) {
     return [ 
         recLEI.entity?.legalName?.name && new LabelValue('Name', recLEI.entity.legalName.name),
@@ -329,10 +352,10 @@ function sectionNames(recLEI) {
 const idxLEI = 14;
 
 export default
-    new Section(sectionIDs(level1LEIs[idxLEI])).domElem().outerHTML + '\n' + 
-    new Section(sectionNames(level1LEIs[idxLEI])).domElem().outerHTML;
+    new Section(sectionIDs(level1LEIs[idxLEI])).domElem.outerHTML + '\n' + 
+    new Section(sectionNames(level1LEIs[idxLEI])).domElem.outerHTML;
 /*
-const showRecs = false;
+const showRecs = true;
 
 export default
     showRecs ?
