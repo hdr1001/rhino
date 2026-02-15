@@ -205,58 +205,70 @@ function Label(desc) {
     this.desc = desc;
 }
 
-Label.prototype.toString = function() {
-    return this.desc;
-}
+//Shared label object functionality
+Object.defineProperties(Label.prototype, {
+    toString: {
+        value: function() { return String(this.desc) }
+    },
+    domElem: {
+        value: function(tag = 'td') {
+            const elem = document.createElement(tag);
+            elem.classList.add('label');
+            elem.textContent = this.toString();
 
-Label.prototype.domElem = function(tag = 'td') {
-    const elem = document.createElement(tag);
-    elem.classList.add('label');
-    elem.textContent = this.desc;
-
-    return elem;
-}
+            return elem;
+        }
+    }
+});
 
 //Constructor function to instantiate a Value object
 function Value(value) {
     this.value = value;
 }
 
-Value.prototype.toString = function() {
-    return String(nullUndefToEmptyStr(this.value));
-}
+//Shared value object functionality
+Object.defineProperties(Value.prototype, {
+    toString: {
+        value: function() { return String(nullUndefToEmptyStr(this.value)) }
+    },
+    isArray: {
+        get: function() { return Array.isArray(this.value) }
+    },
+    numRows: {
+        get: function() {
+            return 
+                this.value == null ||  this.value === ''
+                    ? 0
+                    : (this.isArray ? this.value.length : 1)
+        }
+    },
+    domElem: {
+        value: function(tag = 'td') {
+            const elem = document.createElement(tag);
+            elem.classList.add('value');
+            elem.textContent = this.toString();
 
-Value.prototype.isArray = function() {
-    return Array.isArray(this.value);
-}
+            return elem;
+        }
+    },
+    domElems: {
+        value: function(tag = 'td') {
+            if(!this.isArray) return [ this.domElem(tag) ];
 
-Value.prototype.numRows = function() {
-    return this.isArray() ? this.value.length : 1;
-}
+            let arrElems = [], elem;
 
-Value.prototype.domElem = function(tag = 'td') {
-    let elem = document.createElement(tag);
-    elem.classList.add('value');
-    elem.textContent = this.value.toString();
+            this.value.forEach( v => {
+                elem = document.createElement(tag);
+                elem.classList.add('value');
+                elem.textContent = String(v);
 
-    return elem;
-}
-
-Value.prototype.domElems = function(tag = 'td') {
-    if(!this.isArray()) return [ this.domElem(tag) ];
-
-    let arrElems = [], elem;
-
-    this.value.forEach( v => {
-        elem = document.createElement(tag);
-        elem.classList.add('value');
-        elem.textContent = String(v);
-
-        arrElems.push(elem);
-    });
-    
-    return arrElems;
-}
+                arrElems.push(elem);
+            });
+            
+            return arrElems;
+        }
+    }
+});
 
 //Constructor function to instantiate a LabelValue object
 function LabelValue(label, value) {
@@ -284,7 +296,7 @@ Object.defineProperties(LabelValue.prototype, {
                 this.val.domElems('td').forEach((de, idx) => {
                     if(idx === 0) {
                         //If the value consists of multiple rows, make the label cell span those rows
-                        if(this.val.numRows() > 1) th.setAttribute('rowspan', String(this.val.numRows()))
+                        if(this.val.numRows > 1) th.setAttribute('rowspan', String(this.val.numRows))
                     }
                     else {
                         tr = document.createElement('tr');
@@ -345,17 +357,21 @@ function sectionIDs(recLEI) {
 function sectionNames(recLEI) {
     return [ 
         recLEI.entity?.legalName?.name && new LabelValue('Name', recLEI.entity.legalName.name),
-        recLEI.entity?.otherNames && recLEI.entity.otherNames.length ? new LabelValue('Other name(s)', recLEI.entity.otherNames.map(elem => elem.name)) : null
+        recLEI.entity?.otherNames && recLEI.entity.otherNames.length ? new LabelValue('Other name(s)', recLEI.entity.otherNames.map(elem => elem.name)) : null,
+        recLEI.entity?.transliteratedOtherNames && recLEI.entity.transliteratedOtherNames.length
+            ? new LabelValue('Transliterated name(s)', recLEI.entity.transliteratedOtherNames.map(elem => elem.name))
+            : null
     ].filter(elem => elem != null)
 }
 
-const idxLEI = 14;
+const idxLEI = 0;
 
 export default
     new Section(sectionIDs(level1LEIs[idxLEI])).domElem.outerHTML + '\n' + 
     new Section(sectionNames(level1LEIs[idxLEI])).domElem.outerHTML;
+
 /*
-const showRecs = true;
+const showRecs = false;
 
 export default
     showRecs ?
