@@ -25,25 +25,29 @@ import { entRegistrationAuths as entRegAuth } from '../../assets/codes/entityReg
 import globals from '../globals.js'
 import { nullUndefToEmptyStr, sDateIsoToYYYYMMDD } from '../utils.js';
 
-function leiAddrToStr() {
-    let arrLegalAddr;
+function leiAddrToArr() {
+    let arrLeiAddr;
 
     if(Array.isArray(this.addressLines) && this.addressLines.length) {
-        arrLegalAddr = Array.from(this.addressLines)
+        arrLeiAddr = Array.from(this.addressLines)
     }
     else {
-        arrLegalAddr = [];
+        arrLeiAddr = [];
     }
 
-    arrLegalAddr.push(this.postalCode);
+    arrLeiAddr.push(this.postalCode);
 
-    arrLegalAddr.push(this.city);
+    arrLeiAddr.push(this.city);
 
-    arrLegalAddr.push(this.region);
+    arrLeiAddr.push(this.region);
 
-    arrLegalAddr.push(this.country);
+    arrLeiAddr.push(this.country);
 
-    return arrLegalAddr.filter(elem => elem != null).join(globals.joinSep);
+    return arrLeiAddr.filter(elem => elem != null);
+}
+
+function leiAddrToStr() {
+    return this.leiAddrToArr().join(globals.joinSep);
 }
 
 function leiAddrSameAs(otherAddr) {
@@ -73,6 +77,7 @@ function level1LEI(objLEI) {
 
         legalAddr.toString = leiAddrToStr;
         legalAddr.leiAddrSameAs = leiAddrSameAs;
+        legalAddr.leiAddrToArr = leiAddrToArr;
     }
 
     if(this.entity?.headquartersAddress) {
@@ -80,6 +85,7 @@ function level1LEI(objLEI) {
 
         hqAddr.toString = leiAddrToStr;
         hqAddr.leiAddrSameAs = leiAddrSameAs;
+        hqAddr.leiAddrToArr = leiAddrToArr;
     }
 }
 
@@ -236,8 +242,7 @@ Object.defineProperties(Value.prototype, {
     },
     numRows: {
         get: function() {
-            return 
-                this.value == null ||  this.value === ''
+            return this.value == null ||  this.value === ''
                     ? 0
                     : (this.isArray ? this.value.length : 1)
         }
@@ -364,14 +369,21 @@ function sectionNames(recLEI) {
     ].filter(elem => elem != null)
 }
 
-const idxLEI = 0;
+function sectionAddrs(recLEI) {
+    return [
+        recLEI.entity?.legalAddress && new LabelValue('Legal address', recLEI.entity.legalAddress.leiAddrToArr()),
+        recLEI.entity?.headquartersAddress && !recLEI.entity.legalAddress?.leiAddrSameAs(recLEI.entity.headquartersAddress) ? new LabelValue('HQ address', recLEI.entity.headquartersAddress.leiAddrToArr()) : null
+    ].filter(elem => elem != null)
+}
+
+const idxLEI = 10;
 
 export default
     new Section(sectionIDs(level1LEIs[idxLEI])).domElem.outerHTML + '\n' + 
-    new Section(sectionNames(level1LEIs[idxLEI])).domElem.outerHTML;
-
+    new Section(sectionNames(level1LEIs[idxLEI])).domElem.outerHTML + '\n' + 
+    new Section(sectionAddrs(level1LEIs[idxLEI])).domElem.outerHTML;
 /*
-const showRecs = false;
+const showRecs = true;
 
 export default
     showRecs ?
